@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:JollyCactus.Maui.Model"
+             xmlns:viewmodel="clr-namespace:JollyCactus.Maui.ViewModel"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantViews"
+             x:Class="JollyCactus.Maui.Views.PlantTablePage"                
+             Title="Plants"
+             BackgroundColor="#E9FFE8">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Add location"
+            IconImageSource="add.png" 
+            Clicked="OnAddPlantClicked" />
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout Spacing="5" Padding="5">
+        <CollectionView Margin="0,10" ItemsSource="{Binding Plants}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame>                        
+                        <Grid ColumnDefinitions="*, auto">
+                            <controls:PlantView Grid.Column="0" HorizontalOptions="StartAndExpand">
+                                <View.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPlantTapped" />
+                                </View.GestureRecognizers>
+                            </controls:PlantView>
+                            <Grid ColumnDefinitions="*, *" Grid.Column="1" VerticalOptions="Start">
+                                <Button Grid.Column="1" ImageSource="delete.png" 
+                                        Clicked="OnDeletePlantClicked"
+                                        MaximumHeightRequest="40"
+                                        MaximumWidthRequest="50"
+                                        BackgroundColor="Transparent"/>
+                            </Grid>
+                    </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="JollyCactus.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:JollyCactus.Maui"
+    xmlns:views="clr-namespace:JollyCactus.Maui.Views"
+    Shell.FlyoutBehavior="Disabled"    
+    IconImageSource="cactus.png">
+    <TabBar>
+        <Tab Title="Home">
+            <ShellContent 
+                Title="Home"
+                ContentTemplate="{DataTemplate views:LocationTablePage}" 
+                Route="LocationTablePage" />
+        </Tab>
+        <Tab Title="Plants">
+            <ShellContent 
+                Title="Plants"
+                ContentTemplate="{DataTemplate views:PlantTablePage}" 
+                Route="PlantTablePage" />
+        </Tab>
+    </TabBar>
+</Shell>

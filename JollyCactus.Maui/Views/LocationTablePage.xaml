@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JollyCactus.Maui.Views.LocationTablePage"       
+             Title="Home">
+    <ContentPage.ToolbarItems>
+    <ToolbarItem 
+            Text="Add location"
+            IconImageSource="close.png" 
+            Clicked="OnRemoveAllClicked"/>
+    <ToolbarItem 
+        Text="Remove all"
+        IconImageSource="add.png" 
+        Clicked="OnAddLocationClicked"/>
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout
+        Spacing="5"
+        Padding="5,0">
+        <ListView
+            x:Name="lvLocations" 
+            ItemsSource="{Binding Locations}"
+            ItemTapped="lvLocationsItemTapped"
+            BackgroundColor="Transparent"
+            SeparatorColor="LightSlateGray"
+            VerticalOptions="FillAndExpand">   
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />                                
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label 
+                                Grid.Row="0" Grid.Column="0"
+                                Text="{Binding Name}"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand"/>
+                            <Label 
+                                Grid.Row="1" Grid.Column="0" 
+                                Text="{Binding Note}" 
+                                LineBreakMode="TailTruncation"
+                                />
+                            <Grid
+                                Grid.Row="0" Grid.RowSpan ="2" Grid.Column="1" 
+                                ColumnSpacing="3"
+                                HorizontalOptions="End">
+                                <Grid.ColumnDefinitions>                                     
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button   
+                                    Grid.Column="0"
+                                    x:Name="btnAddPlant"
+                                    ImageSource="addplant.png" 
+                                    MaximumHeightRequest="40"
+                                    MaximumWidthRequest="50"
+                                    BackgroundColor="Transparent"
+                                    SemanticProperties.Hint="Add plant"
+                                    Clicked="OnAddPlantClicked"
+                                    VerticalOptions="Start" />
+                                <Button   
+                                    Grid.Column="1"
+                                    x:Name="btnEditLocation"
+                                    ImageSource="edit.png" 
+                                    MaximumHeightRequest="40"
+                                    MaximumWidthRequest="50"
+                                    BackgroundColor="Transparent"
+                                    SemanticProperties.Hint="Edit location"
+                                    Clicked="OnEditLocationClicked"
+                                    VerticalOptions="Start" />
+                                <Button       
+                                    Grid.Column="2"                                    
+                                    x:Name="btnDeleteLocation"
+                                    ImageSource="delete.png" 
+                                    MaximumHeightRequest="40"
+                                    MaximumWidthRequest="50"
+                                    BackgroundColor="Transparent"
+                                    SemanticProperties.Hint="Delete location"                                
+                                    Clicked="OnDeleteLocationClicked"
+                                    VerticalOptions="Start" />
+                            </Grid>                                
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button                     
+            x:Name="btnAddLocation"
+            ImageSource="Add.png" 
+            Text="Add location"            
+            TextColor="Black"
+            FontSize="14"
+            SemanticProperties.Hint="Add location"                                
+            Clicked="OnAddLocationClicked"
+            MaximumHeightRequest="50"
+            HorizontalOptions="Fill"
+            VerticalOptions="End" />           
+        
+    </VerticalStackLayout>
+</ContentPage>

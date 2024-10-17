@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:model="clr-namespace:JollyCactus.Maui.ViewModel"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PropertyViews"
+             x:Class="JollyCactus.Maui.Views.ModifyPropertyPage"
+             Title="ModifyPropertyPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+        Text="Save property"
+        IconImageSource="ok.png" 
+        Clicked="OnOkClicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="PropertyString">
+            <VerticalStackLayout>
+                <controls:PlantPtopertyStringView/>
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyDate">
+            <VerticalStackLayout>
+                <controls:PlantPtopertyDateView/>
+            </VerticalStackLayout>
+        </DataTemplate>
+        <controls:PropertyModifyTemplateSelector x:Key="PropertiesModifySelector" 
+            PropertyModifyTemplateString="{StaticResource PropertyString}"
+            PropertyModifyTemplateDate="{StaticResource PropertyDate}" />
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout Padding="5">
+        <Label></Label>
+
+        <Label Text="{Binding Name}" TextColor="Black" FontAttributes="Bold"/>
+        <Label Text="{Binding Description}" TextColor="Black"/>
+
+        <CollectionView            
+            ItemsSource="{Binding SubProperties}"
+                ItemTemplate="{StaticResource PropertiesModifySelector}">
+        </CollectionView>          
+
+        <Grid Padding="5" ColumnSpacing="5" ColumnDefinitions="*,*">            
+            <Button
+                Grid.Column="0"
+                x:Name="btnPropertyCancel"
+                Text="Cancel" 
+                SemanticProperties.Hint="Cancel"
+                Clicked="OnCancelClicked"
+                TextColor="Black"
+                FontAttributes="Bold"               
+                FontSize="12"
+                VerticalOptions="End"/> 
+            <Button
+                Grid.Column="1"
+                x:Name="btnPropertyOk"
+                Text="Save"                 
+                SemanticProperties.Hint="Save property"
+                Clicked="OnOkClicked"
+                TextColor="Black"
+                FontAttributes="Bold"               
+                FontSize="12"
+                VerticalOptions="End"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

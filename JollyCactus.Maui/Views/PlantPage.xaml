@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PropertyViews"
+             x:Class="JollyCactus.Maui.Views.PlantPage"
+             Title="{Binding Name}"             
+             BackgroundColor="#E9FFE8">
+    
+    <ContentPage.Resources>
+        <DataTemplate x:Key="PropertyString">
+            <Grid RowDefinitions="auto, auto">
+                <Label Grid.Row="0" Text="{Binding Value}" TextColor="ForestGreen"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyDate">
+            <Grid RowDefinitions="auto, auto">
+                <Label Grid.Row="0" Text="{Binding Value, StringFormat='{0:dd}-{0:MM}-{0:yyyy}'}" TextColor="ForestGreen"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>        
+
+        <controls:PropertyViewTemplateSelector x:Key="PropertiesSelector" 
+                                               PropertyTemplateString="{StaticResource PropertyString}"
+                                               PropertyTemplateDate="{StaticResource PropertyDate}"/>
+        
+    </ContentPage.Resources>
+    
+    <Grid Padding="15" RowSpacing="5" RowDefinitions="100, *, 50"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        
+        <Frame Grid.Row="0" Padding="5">            
+        <Grid Padding="3" ColumnSpacing="5">            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
+                <Image                    
+                    x:Name="imgPlant"
+                    Source="plantcolor.png"/>
+            </Border>
+            <Border Grid.Column="1" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
+                <ImageButton
+                    x:Name="btnGallery"
+                    Source="gallery.png" 
+                    BackgroundColor="Transparent"/>
+            </Border>
+            <Border Grid.Column="2" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
+                <ImageButton                
+                    x:Name="btnState"
+                    Source="stategood.png" 
+                    BackgroundColor="LightGreen"/>
+            </Border>
+        </Grid>
+        </Frame>
+        <CollectionView Grid.Row="1"
+                VerticalScrollBarVisibility="Always"
+                x:Name="cvProperties"
+                Margin="0,10"
+                ItemsSource="{Binding PlantPropertiesByGroups}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Spacing="10">
+                        <Label FontAttributes="Bold" Text="{Binding GroupName}" />
+                        <Frame>
+                            <CollectionView ItemsSource="{Binding Properties}">                                
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid RowDefinitions="auto, auto">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPropertyTapped" />
+                                            </Grid.GestureRecognizers>
+                                            <Label Grid.Row="0" FontAttributes="Bold" Text="{Binding Name}" />
+                                            <CollectionView Grid.Row="1" 
+                                                            ItemsSource="{Binding SubProperties}"
+                                                            ItemTemplate="{StaticResource PropertiesSelector}">
+                                            </CollectionView>
+                                        </Grid>                                        
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            
+                        </Frame> 
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>        
+
+        <Grid Grid.Row="2" Padding="5" ColumnSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                x:Name="btnPropertyCancel"
+                Text="Cancel" 
+                SemanticProperties.Hint="Cancel"
+                Clicked="OnCancelClicked"
+                TextColor="Black"
+                FontAttributes="Bold"               
+                FontSize="12"
+                VerticalOptions="End"/>
+            <Button
+                Grid.Column="1"
+                x:Name="btnPropertyOk"
+                Text="Save"                 
+                SemanticProperties.Hint="Save property"
+                Clicked="OnOkClicked"
+                TextColor="Black"
+                FontAttributes="Bold"               
+                FontSize="12"
+                VerticalOptions="End"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>
