@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:JollyCactus.Maui.Model"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertySunlightView" >
+
+    <ContentView.Resources>
+        <DataTemplate x:Key="Light0">
+            
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="light1.png" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Full shade" VerticalTextAlignment="Center"/>
+            </Grid>
+            
+        </DataTemplate>
+        <DataTemplate x:Key="Light1">
+            
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="light2.png" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Dappled sun" VerticalTextAlignment="Center" />
+            </Grid>
+            
+        </DataTemplate>
+        <DataTemplate x:Key="Light2">
+            
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="light3.png" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Partial shade" VerticalTextAlignment="Center" />
+            </Grid>
+            
+        </DataTemplate>
+        <DataTemplate x:Key="Light3">
+            
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="light4.png" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Partial sun" VerticalTextAlignment="Center" />
+            </Grid>
+            
+        </DataTemplate>
+        <DataTemplate x:Key="Light4">
+            
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="light5.png" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Full sun" VerticalTextAlignment="Center" />
+            </Grid>
+            
+        </DataTemplate>
+
+        <template:LightTemplateSelector x:Key="LightSelector" 
+                                    LightTemplate0="{StaticResource Light0}"
+                                    LightTemplate1="{StaticResource Light1}" 
+                                    LightTemplate2="{StaticResource Light2}"
+                                    LightTemplate3="{StaticResource Light3}"
+                                    LightTemplate4="{StaticResource Light4}" />
+    </ContentView.Resources>
+    
+    <VerticalStackLayout>
+        <CollectionView 
+            xmlns:Name="cvSun"
+            SelectionMode="Multiple"   
+            ItemsLayout="VerticalList"
+            ItemsSource = "{Binding AllPossibleValues}"
+            SelectedItems="{Binding SelectedObjects, Mode=TwoWay}"
+            SelectionChangedCommand="{Binding SelectedValuesChangedCommand}"
+            SelectionChangedCommandParameter="{Binding .}"
+            ItemTemplate="{StaticResource LightSelector}">            
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentView>

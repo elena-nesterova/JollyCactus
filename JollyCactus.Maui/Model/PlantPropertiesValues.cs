@@ -1,14 +1,42 @@
-﻿namespace JollyCactus.Maui.Model
+﻿
+namespace JollyCactus.Maui.Model
 {
-    enum Watering
+    public static class PlantPropertiesValues
     {
-        None = 0,
-    };
+        public static readonly string PlantPropertyName = "name";
 
-    enum Sun
-    {
-        SunPlace,
-        HalfSun,
-        Shadow
+        public static readonly string PlantPropertyPictureName = "picture";
+
+        public static readonly string PlantPropertyGalleryName = "gallery";
+
+        public static readonly string PlantPropertyStateName = "state";
+
+        public static readonly string PlantPropertySunlightName = "sunlight";
+
+        public static readonly Dictionary<string, List<string>> PlantPropertiesValuesDict = new()
+        {
+            [PlantPropertySunlightName] = new() 
+            {
+                "fullshade",
+                "dappledsun",
+                "partialshade",
+                "partialsun",
+                "fullsun"
+            },
+
+            [PlantPropertyStateName] = new()
+            {
+                "almostdead",
+                "bad",
+                "ok",
+                "fine",
+                "excellent"
+            }
+        };
+
+       
+
+        
+
     }
 }

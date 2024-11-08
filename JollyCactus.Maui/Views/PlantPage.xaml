@@ -1,29 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PropertyViews"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
+             xmlns:templates="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
              x:Class="JollyCactus.Maui.Views.PlantPage"
              Title="{Binding Name}"             
              BackgroundColor="#E9FFE8">
     
     <ContentPage.Resources>
+
+        <Image x:Key="DefaultImage" Source="plantcolor.png" />        
+
         <DataTemplate x:Key="PropertyString">
             <Grid RowDefinitions="auto, auto">
-                <Label Grid.Row="0" Text="{Binding Value}" TextColor="ForestGreen"/>
+                <controls:ViewPropertyStringView Grid.Row="0" />                
                 <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="PropertyDate">
             <Grid RowDefinitions="auto, auto">
-                <Label Grid.Row="0" Text="{Binding Value, StringFormat='{0:dd}-{0:MM}-{0:yyyy}'}" TextColor="ForestGreen"/>
+                <controls:ViewPropertyDateView Grid.Row="0" />
                 <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
             </Grid>
-        </DataTemplate>        
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyPicture">
+            <Grid RowDefinitions="auto, auto">
+                <controls:ViewPropertyPictureView 
+                    Grid.Row="0"
+                    HeightRequest="45" WidthRequest="45"
+                    HorizontalOptions="StartAndExpand"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyStringsFromList">
+            <Grid RowDefinitions="auto, auto">
+                <Label Text="{Binding .}" Grid.Row="0"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyStringsFromListSunlight">
+            <Grid RowDefinitions="auto, auto">
+                <controls:ViewPropertySunlightView Grid.Row="0"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyOneFromList">
+            <Grid RowDefinitions="auto, auto">
+                <controls:ViewPropertyStringView Grid.Row="0" />
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PropertyOneFromListState">
+            <Grid RowDefinitions="auto, auto">
+                <controls:ViewPropertyStateView 
+                    Grid.Row="0" 
+                    MaximumHeightRequest="30" MaximumWidthRequest="30"
+                    HorizontalOptions="Start"/>
+                <Line Grid.Row="1" X2="{Binding Width, Source={RelativeSource Self}}" />
+            </Grid>
+        </DataTemplate>
 
-        <controls:PropertyViewTemplateSelector x:Key="PropertiesSelector" 
-                                               PropertyTemplateString="{StaticResource PropertyString}"
-                                               PropertyTemplateDate="{StaticResource PropertyDate}"/>
-        
+        <templates:PropertyTemplateSelector 
+            x:Key="PropertiesSelector" 
+            PropertyTemplateString="{StaticResource PropertyString}"
+            PropertyTemplateDate="{StaticResource PropertyDate}"
+            PropertyTemplatePicture="{StaticResource PropertyPicture}"
+            PropertyTemplateStringsFromListDefault="{StaticResource PropertyStringsFromList}"
+            PropertyTemplateStringsFromListSunlight="{StaticResource PropertyStringsFromListSunlight}"
+            PropertyTemplateOneFromListDefault="{StaticResource PropertyOneFromList}"
+            PropertyTemplateOneFromListState="{StaticResource PropertyOneFromListState}"/>
+
     </ContentPage.Resources>
     
     <Grid Padding="15" RowSpacing="5" RowDefinitions="100, *, 50"
@@ -37,23 +83,18 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
-                <Image                    
-                    x:Name="imgPlant"
-                    Source="plantcolor.png"/>
-            </Border>
+            
+            <controls:ViewPropertyPictureView Grid.Column="0" VerticalOptions="Center" HeightRequest="75" WidthRequest="75" BindingContext="{Binding Picture}" />
+            
             <Border Grid.Column="1" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
                 <ImageButton
                     x:Name="btnGallery"
                     Source="gallery.png" 
                     BackgroundColor="Transparent"/>
             </Border>
-            <Border Grid.Column="2" VerticalOptions="Center" HeightRequest="75" WidthRequest="75">
-                <ImageButton                
-                    x:Name="btnState"
-                    Source="stategood.png" 
-                    BackgroundColor="LightGreen"/>
-            </Border>
+
+            <controls:ViewPropertyStateView Grid.Column="2" VerticalOptions="Center" HeightRequest="75" WidthRequest="75" BindingContext="{Binding State}" />
+
         </Grid>
         </Frame>
         <CollectionView Grid.Row="1"
@@ -75,7 +116,7 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid RowDefinitions="auto, auto">
+                                        <Grid RowDefinitions="auto, auto" >
                                             <Grid.GestureRecognizers>
                                                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPropertyTapped" />
                                             </Grid.GestureRecognizers>
@@ -87,8 +128,7 @@
                                         </Grid>                                        
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
-                            </CollectionView>
-                            
+                            </CollectionView>                            
                         </Frame> 
                     </StackLayout>
                 </DataTemplate>

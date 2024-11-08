@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             xmlns:converter="clr-namespace:JollyCactus.Maui.Views.Converters"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ViewPropertyStateView">
+
+    <ContentView.Resources>     
+
+        <converter:StringMatchConverter x:Key ="StringMatchConverter" />
+    </ContentView.Resources>
+
+    <Border Padding="0">
+        <Image HorizontalOptions="Fill">
+            <Image.Triggers>
+                <DataTrigger TargetType="Image" Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource StringMatchConverter}">
+                            <Binding Path="Value"/>
+                            <Binding Path="AllPossibleValues[0]" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Source" Value="statebad.png" />
+                    <Setter Property="BackgroundColor" Value="Red" />
+                </DataTrigger>
+                <DataTrigger TargetType="Image" Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource StringMatchConverter}">
+                            <Binding Path="Value"/>
+                            <Binding Path="AllPossibleValues[1]" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Source" Value="statebad.png" />
+                    <Setter Property="BackgroundColor" Value="Orange" />
+                </DataTrigger>
+                <DataTrigger TargetType="Image" Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource StringMatchConverter}">
+                            <Binding Path="Value"/>
+                            <Binding Path="AllPossibleValues[2]" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Source" Value="stateok.png" />
+                    <Setter Property="BackgroundColor" Value="Yellow" />
+                </DataTrigger>
+                <DataTrigger TargetType="Image" Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource StringMatchConverter}">
+                            <Binding Path="Value"/>
+                            <Binding Path="AllPossibleValues[3]" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Source" Value="stategood.png" />
+                    <Setter Property="BackgroundColor" Value="GreenYellow" />
+                </DataTrigger>
+                <DataTrigger TargetType="Image" Value="True">
+                    <DataTrigger.Binding>
+                        <MultiBinding Converter="{StaticResource StringMatchConverter}">
+                            <Binding Path="Value"/>
+                            <Binding Path="AllPossibleValues[4]" />
+                        </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Source" Value="stategood.png" />
+                    <Setter Property="BackgroundColor" Value="LightGreen" />
+                </DataTrigger>
+            </Image.Triggers>
+        </Image>
+    </Border>
+
+</ContentView>

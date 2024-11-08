@@ -10,13 +10,12 @@ namespace JollyCactus.Maui.Model
 {
     public enum PlantPropertyType
     {
-        PlantPropertyString,
-        PlantPropertyDate,
-        PlantPropertyPicture,
-        PlantPropertyPictureSet,
-        PlantPropertyFlags,
-        PlantPropertyStringFromList,
-        PlantPropertyComposite
+        PlantPropertyComposite = 0,
+        PlantPropertyString = 1,
+        PlantPropertyDate = 2,
+        PlantPropertyPicture = 3,
+        PlantPropertyStringsFromList = 4,
+        PlantPropertyOneFromList = 5        
     }
 
 

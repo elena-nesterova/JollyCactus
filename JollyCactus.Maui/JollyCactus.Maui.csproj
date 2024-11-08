@@ -86,8 +86,14 @@
 	  <Compile Update="Views\LocationTablePage.xaml.cs">
 	    <DependentUpon>LocationTablePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\PropertyViews\PlantPropertyView.xaml.cs">
+	  <Compile Update="Views\PlantPropertyViews\PlantPropertyView.xaml.cs">
 	    <DependentUpon>PlantPropertyView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PlantPropertyViews\Modify\ModifyPropertyDateView.xaml.cs">
+	    <DependentUpon>ModifyPropertyDateView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\PlantPropertyViews\Modify\ModifyPropertyStringView.xaml.cs">
+	    <DependentUpon>ModifyPropertyStringView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -104,19 +110,49 @@
 	  <MauiXaml Update="Views\LocationTablePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyOneFromListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyPictureView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyStateView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyStringsFromListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertySunlightView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\View\ViewPropertyDateView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\View\ViewPropertyPictureView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\View\ViewPropertyStateView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\View\ViewPropertyStringView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\PlantPropertyViews\View\ViewPropertySunlightView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PlantViews\PlantView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PropertyViews\PlantPropertyView.xaml">
+	  <MauiXaml Update="Views\PlantPropertyViews\PlantPropertyView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\PlantTablePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PropertyViews\PlantPtopertyDateView.xaml">
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyDateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\PropertyViews\PlantPtopertyStringView.xaml">
+	  <MauiXaml Update="Views\PlantPropertyViews\Modify\ModifyPropertyStringView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

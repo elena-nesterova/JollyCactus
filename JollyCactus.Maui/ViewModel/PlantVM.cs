@@ -12,8 +12,8 @@ namespace JollyCactus.Maui.ViewModel
         private Model.Location _location;
 
         public string Name { get; set; }
-        public string Picture { get; set; }
-        public int State { get; set; }
+        public PlantPropertyPictureVM? Picture { get; set; }
+        public PlantPropertyOneFromListVM? State { get; set; }
 
         public Model.Location Location { get; set; }
 
@@ -106,23 +106,17 @@ namespace JollyCactus.Maui.ViewModel
             {                
                 return;
             }
-            // TODO
+            
             dstProperty.UpdateFrom(changedProperty);
-            /*if (dstProperty.SubProperties != null && changedProperty.SubProperties != null)
-            {
-                foreach (var subDstProp in dstProperty.SubProperties)
-                {
-                    var subSrcProp = changedProperty.SubProperties.FirstOrDefault(x => x.Name.Equals(subDstProp.Name), null);
-                    if ( subSrcProp != null)
-                    {
-                        subDstProp.UpdateFrom(subSrcProp);
-                    }                    
-                }
-            }*/
+            
             OnPropertyChanged(nameof(PlantPropertiesByGroups));
-        }
 
-        
+            if (State != null && dstProperty.Name.Equals(State.Name))
+                OnPropertyChanged(nameof(State));
+
+            if (Picture != null && dstProperty.Name.Equals(Picture.Name))
+                OnPropertyChanged(nameof(Picture));
+        }        
 
         private async Task LoadProperties()
         {
@@ -147,6 +141,10 @@ namespace JollyCactus.Maui.ViewModel
                         propertyGroupVM.Properties.Add(propVM);
                 }
             }
+            /*
+            Picture = PlantPropertiesByGroups.Where(
+                g => g.Properties.Where(
+                    p => string.Equals(p.Name, "picture", StringComparison.CurrentCultureIgnoreCase)))*/
 
         }
 
@@ -192,20 +190,46 @@ namespace JollyCactus.Maui.ViewModel
                     }
                 }
             }
-                    
-            
-                if (string.Equals(plantPropVM.Name, "name", StringComparison.OrdinalIgnoreCase))
-                {
-                    //TODO
-                    if (plantPropVM.SubProperties[0] is PlantPropertyStringVM subPropTyped)
-                        Name = subPropTyped.Value;
-                }
-                //if (string.Equals(plantPropertyVM.Name, "picture", StringComparison.OrdinalIgnoreCase))
-                //{
-                    //TODO
-                //    Picture = plantPropertyVM.SubProperties[0].Value;
-                //    plantPropertyVM.IsDisplay = false;
-                //}
+
+            //TODO
+            switch (plantPropVM.Name)
+            {
+                case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertyName, StringComparison.InvariantCultureIgnoreCase):
+                    {
+                        if (plantPropVM.SubProperties[0] is PlantPropertyStringVM subPropTyped)
+                            Name = subPropTyped.Value;
+                        break;
+                    }
+                case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertyPictureName, StringComparison.InvariantCultureIgnoreCase):
+                    {
+                        if (plantPropVM.SubProperties[0] is PlantPropertyPictureVM subPropTyped)
+                            Picture = subPropTyped;
+                        plantPropVM.IsDisplay = false;
+                        break;
+                    }
+                case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertyStateName, StringComparison.InvariantCultureIgnoreCase):
+                    {
+                        if (plantPropVM.SubProperties[0] is PlantPropertyOneFromListVM subPropTyped)
+                            State = subPropTyped;
+                        plantPropVM.IsDisplay = false;
+                        break;
+                    }
+                default:
+                    // default code
+                    break;
+
+            }
+            /*if (string.Equals(plantPropVM.Name, "name", StringComparison.OrdinalIgnoreCase))
+            {                    
+                if (plantPropVM.SubProperties[0] is PlantPropertyStringVM subPropTyped)
+                    Name = subPropTyped.Value;
+            }
+            else if (string.Equals(plantPropVM.Name, "picture", StringComparison.OrdinalIgnoreCase))
+            {
+                if (plantPropVM.SubProperties[0] is PlantPropertyStringVM subPropTyped)
+                Picture = subPropTyped.Value;
+                plantPropVM.IsDisplay = false;
+            }*/
            
                
             return plantPropVM;         

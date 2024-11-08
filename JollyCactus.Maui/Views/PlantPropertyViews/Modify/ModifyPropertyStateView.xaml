@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyStateView">
+
+    <ContentView.Resources>
+        <DataTemplate x:Key="State0">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="statebad.png" BackgroundColor="Red" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Very bad" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="State1">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="statebad.png" BackgroundColor="Orange" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Bad" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="State2">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="stateok.png" BackgroundColor="Yellow" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="OK" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="State3">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="stategood.png" BackgroundColor="GreenYellow" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Good" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="State4">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="stategood.png" BackgroundColor="LightGreen" MaximumHeightRequest="45" />
+                <Label Grid.Column="1" Text="Excellent" VerticalTextAlignment="Center"/>
+            </Grid>
+
+        </DataTemplate>
+
+        <template:StateTemplateSelector x:Key="StateSelector" 
+                                    StateTemplate0="{StaticResource State0}"
+                                    StateTemplate1="{StaticResource State1}" 
+                                    StateTemplate2="{StaticResource State2}"
+                                    StateTemplate3="{StaticResource State3}"
+                                    StateTemplate4="{StaticResource State4}" />
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <CollectionView 
+            SelectionMode="Single"   
+            ItemsLayout="VerticalList"
+            ItemsSource = "{Binding AllPossibleValues}"
+            SelectedItem="{Binding Value, Mode=TwoWay}"
+            ItemTemplate="{StaticResource StateSelector}">
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentView>

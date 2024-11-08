@@ -40,10 +40,12 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
         public override object Clone()
         {
             PlantPropertyCompositeVM clone = (PlantPropertyCompositeVM)MemberwiseClone();
-            //foreach (PlantPropertyVM subProp in SubProperties)
-            //{
-            //    clone.SubProperties.Add((PlantPropertyVM)subProp.Clone());
-            //}
+
+            clone.SubProperties = new();
+            foreach (PlantPropertyVM subProp in SubProperties)
+            {
+                clone.SubProperties.Add((PlantPropertyVM)subProp.Clone());
+            }
             return clone;
         }
     }

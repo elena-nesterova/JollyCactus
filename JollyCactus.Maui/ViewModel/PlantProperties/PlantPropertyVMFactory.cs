@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using System.Reflection.Metadata;
 
 namespace JollyCactus.Maui.ViewModel.PlantProperties
@@ -18,13 +19,27 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
                         (modelProperty == null) ? "" : modelProperty.DBValue);
                     break;
                 case Model.PlantPropertyType.PlantPropertyString:
-                case Model.PlantPropertyType.PlantPropertyPicture:
                     plantPropertyVM = new PlantPropertyStringVM(
                         propertyDefinition.Name, propertyDefinition.Description,
                         (modelProperty == null) ? propertyDefinition.DefaultValue : modelProperty.DBValue);
                     break;
+                case Model.PlantPropertyType.PlantPropertyPicture:
+                    plantPropertyVM = new PlantPropertyPictureVM(
+                        propertyDefinition.Name, propertyDefinition.Description,
+                        (modelProperty == null) ? propertyDefinition.DefaultValue : modelProperty.DBValue);
+                    break;
+                case Model.PlantPropertyType.PlantPropertyStringsFromList:
+                    plantPropertyVM = new PlantPropertyStringsFromListVM(
+                        propertyDefinition.Name, propertyDefinition.Description,
+                        (modelProperty == null) ? "" : modelProperty.DBValue);
+                    break;
+                case Model.PlantPropertyType.PlantPropertyOneFromList:
+                    plantPropertyVM = new PlantPropertyOneFromListVM(
+                        propertyDefinition.Name, propertyDefinition.Description,
+                        (modelProperty == null) ? "" : modelProperty.DBValue);
+                    break;
             }
-
+            Debug.Assert(plantPropertyVM != null);
             return plantPropertyVM;
         }
 

@@ -50,6 +50,14 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
+                Name = "state",
+                Description = "how does the plant feel",
+
+                Type = Maui.Model.PlantPropertyType.PlantPropertyOneFromList
+            });
+
+            group.Properties.Add(new Model.PlantPropertyDefinition
+            {
                 Name = "picture",
                 Description = "",
 
@@ -58,7 +66,7 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "gellery",
+                Name = "gallery",
                 Description = "pictures of the plant",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyPicture
@@ -97,25 +105,9 @@ namespace JollyCactus.Maui.Data
                 Name = "sunlight",
                 Description = "How much sun does the plant need",
 
-                Type = Maui.Model.PlantPropertyType.PlantPropertyFlags
+                Type = Maui.Model.PlantPropertyType.PlantPropertyStringsFromList
             });
-
-            group.Properties.Add(new Model.PlantPropertyDefinition
-            {
-                Name = "watering",
-                Description = "How much water does the plant need",
-
-                Type = Maui.Model.PlantPropertyType.PlantPropertyFlags
-            });
-
-            group.Properties.Add(new Model.PlantPropertyDefinition
-            {
-                Name = "humidity",
-                Description = "How much humidity does the plant need",
-
-                Type = Maui.Model.PlantPropertyType.PlantPropertyFlags
-            });
-
+            
             groups.Add(group);
 
             return groups;

@@ -55,17 +55,7 @@ public partial class PlantPage : ContentPage
             _isLoaded = true;
             OnPropertyChanged(nameof(PlantVModel));
         }
-    }
-
-   /* private void InitPropertiesDict()
-    {
-        _properties = new Dictionary<string, Microsoft.Maui.Controls.View>
-        {
-            { lbNameTitle.Text, lbName },
-            { lbBNameTitle.Text, lbBName },
-            { lbNoteTitle.Text, lbNote }
-        };
-    }*/
+    }  
 
     public PlantPropertyVM? SelectedProperty
     {
@@ -73,8 +63,7 @@ public partial class PlantPage : ContentPage
         set
         {
             _selectedProperty = value;
-            OpenPropertyPage();
-            //OnPropertyChanged("SelectedProperty");
+            OpenPropertyPage();            
         }
     }
 
@@ -82,43 +71,31 @@ public partial class PlantPage : ContentPage
     
     private void OnPlantPropertyChanged(string propertyName)
     {
-        //if (!_isCreating)
-        {
-            var prop = _propertySharedService.GetAndRemoveValue<PlantPropertyVM>(propertyName);
-            Debug.Assert(prop != null, "OnPlantPropertyChanged cannot find property: " + propertyName);
-            //Debug.Assert(_selectedProperty.Name.Equals(prop.Name), "OnPlantPropertyChanged: Property sharing process corrupt");
-            Debug.WriteLine("JC: PlantPage OnPlantPropertyChanged - " + propertyName);
+        
+        var prop = _propertySharedService.GetAndRemoveValue<PlantPropertyVM>(propertyName);
+        Debug.Assert(prop != null, "OnPlantPropertyChanged cannot find property: " + propertyName);
+        //Debug.Assert(_selectedProperty.Name.Equals(prop.Name), "OnPlantPropertyChanged: Property sharing process corrupt");
+        Debug.WriteLine("JC: PlantPage OnPlantPropertyChanged - " + propertyName);
 
-            _plantVM.UpdateProperty(prop);
-            OnPropertyChanged(nameof(PlantVModel));
-            Debug.WriteLine("JC: OnPlantPropertyChanged");
-
-
-            //if (value != null)
-            //{
-            //    await _plantVM.SavePlant();
-            //}
-        }
-        //_propertySharedService.OnPropertyChanged -= OnPlantPropertyChanged;
+        _plantVM.UpdateProperty(prop);
+        OnPropertyChanged(nameof(PlantVModel));
+        Debug.WriteLine("JC: OnPlantPropertyChanged");               
     }
 
     private async void OpenPropertyPage()
     {
-        if (_selectedProperty == null)
-        {
-            Debug.WriteLine("JC: PlantPage _selectedProperty is null");
+        if (_selectedProperty == null)        
             return;
-        }
+        
+        if (_propertySharedService.GetValue<PlantPropertyVM>(_selectedProperty.Name) != null)
+            return;
 
-        PlantPropertyVM propCopy = _selectedProperty.Clone() as PlantPropertyVM;
-        _propertySharedService.Add<PlantPropertyVM>(_selectedProperty.Name, propCopy/*_plantVM.CreateCopyProperty(_selectedProperty)*/);
+        PlantPropertyVM propCopy = _selectedProperty.Clone() as PlantPropertyVM;        
 
+        _propertySharedService.Add<PlantPropertyVM>(_selectedProperty.Name, propCopy);
 
-        //string title = ((_isCreating) ? "Add " : "Edit") + propertyName;
-        //MainThread.BeginInvokeOnMainThread(async () => 
-        //    { await Navigation.PushAsync(new ModifyPropertyPage(_propertySharedService, title, propertyName, true)); });
         await Navigation.PushAsync(
-            new ModifyPropertyPage(_propertySharedService, _selectedProperty.Name));//(_propertySharedService, title, propertyName, true));
+            new ModifyPropertyPage(_propertySharedService, _selectedProperty.Name));
     }
 
     private void OnPropertyTapped(object sender, EventArgs e)
@@ -135,24 +112,6 @@ public partial class PlantPage : ContentPage
     private async void OnCancelClicked(object sender, EventArgs e)
     {        
         await Shell.Current.GoToAsync("..");
-    }
+    }    
     
-    private async void TakePhoto()
-    {
-        if (MediaPicker.Default.IsCaptureSupported)
-        {
-            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-
-            if (photo != null)
-            {
-                // save the file into local storage
-                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-
-                using Stream sourceStream = await photo.OpenReadAsync();
-                using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-                await sourceStream.CopyToAsync(localFileStream);
-            }
-        }
-    }
 }

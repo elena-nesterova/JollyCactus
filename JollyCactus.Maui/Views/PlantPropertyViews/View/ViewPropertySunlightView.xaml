@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ViewPropertySunlightView">
+
+    <ContentView.Resources>
+        <DataTemplate x:Key="Light0">
+            <VerticalStackLayout>
+                <Image Source="light1.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="Light1">
+            <VerticalStackLayout>
+                <Image Source="light2.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="Light2">
+            <VerticalStackLayout>
+                <Image Source="light3.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="Light3">
+            <VerticalStackLayout>
+                <Image Source="light4.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <DataTemplate x:Key="Light4">
+            <VerticalStackLayout>
+                <Image Source="light5.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </DataTemplate>
+        <template:LightTemplateSelector x:Key="LightSelector" 
+                                        LightTemplate0="{StaticResource Light0}"
+                                        LightTemplate1="{StaticResource Light1}" 
+                                        LightTemplate2="{StaticResource Light2}"
+                                        LightTemplate3="{StaticResource Light3}"
+                                        LightTemplate4="{StaticResource Light4}" />
+    </ContentView.Resources>
+
+    <CollectionView 
+        ItemsLayout="HorizontalList"
+        ItemsSource="{Binding Value}"
+        ItemTemplate="{StaticResource LightSelector}">
+    </CollectionView>
+    
+</ContentView>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:JollyCactus.Maui.Model"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyStringsFromListView">
+
+    <CollectionView 
+        SelectionMode="Multiple"   
+        ItemsLayout="VerticalList"
+        ItemsSource = "{Binding AllPossibleValues}"
+        SelectedItems="{Binding SelectedObjects, Mode=TwoWay}"
+        SelectionChangedCommand="{Binding SelectedValuesChangedCommand}"
+        SelectionChangedCommandParameter="{Binding .}">
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <VerticalStackLayout>
+                    <Label Text="{Binding StringValue}" />
+                </VerticalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentView>

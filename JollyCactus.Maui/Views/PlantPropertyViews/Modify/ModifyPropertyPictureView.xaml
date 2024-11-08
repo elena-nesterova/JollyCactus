@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyPictureView">
+    
+    <Grid RowDefinitions="auto, *, *" RowSpacing="10">
+        <Frame Grid.Row="0" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100">
+            <Image             
+                Source="{Binding Value, FallbackValue='plantcolor.png', TargetNullValue='plantcolor.png'}" />
+        </Frame>
+        <Button 
+            Grid.Row="1"
+            TextColor="Black"
+            HorizontalOptions="Fill"
+            Text="Choose picture..."
+            Clicked="OnChoosePictureClicked" />
+        <Button 
+            Grid.Row="2"
+            TextColor="Black"
+            HorizontalOptions="Fill"
+            Text="Camera..."
+            Clicked="OnCameraClicked" /> 
+    </Grid>
+</ContentView>
