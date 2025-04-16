@@ -15,7 +15,8 @@ namespace JollyCactus.Maui.Model
         PlantPropertyDate = 2,
         PlantPropertyPicture = 3,
         PlantPropertyStringsFromList = 4,
-        PlantPropertyOneFromList = 5        
+        PlantPropertyOneFromList = 5,
+        PlantPropertyNumber = 6
     }
 
 
@@ -38,7 +39,7 @@ namespace JollyCactus.Maui.Model
         }
     }
 
-    [Table("PlantProperties")]
+    [Table("PlantPropertiesDefinition")]
     public class PlantPropertyDefinition
     {
         [PrimaryKey]

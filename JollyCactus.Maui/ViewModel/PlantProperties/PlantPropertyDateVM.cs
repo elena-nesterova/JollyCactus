@@ -2,10 +2,11 @@
 {
     public class PlantPropertyDateVM : PlantPropertyVM<DateTime>
     {
-        public PlantPropertyDateVM(string name, string description, string persistenceStringValue = "") :
-            base(name, description)
+        public PlantPropertyDateVM(string name, string description, string parentName, string persistenceStringValue = "") :
+            base(name, description, parentName)
         {
             Value = string.IsNullOrEmpty(persistenceStringValue) ? DateTime.Now : DateTime.Parse(persistenceStringValue);
+            IsChanged = false;
         }
 
         public override Model.PlantPropertyType PropertyType => Model.PlantPropertyType.PlantPropertyDate;

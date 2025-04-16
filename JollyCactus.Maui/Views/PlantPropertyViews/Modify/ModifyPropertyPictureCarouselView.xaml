@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:JollyCactus.Maui.Views.Converters"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyPictureCarouselView">
+
+    <ContentView.Resources>
+        <converter:FileNameToFullFileNameInAccountDirConverter x:Key="fileName" />
+    </ContentView.Resources>
+    
+    <Grid RowDefinitions="*, auto" RowSpacing="10" Padding="10">
+        <CarouselView 
+            Loop="False"
+            PeekAreaInsets="20"
+            Grid.Row="0"
+            HeightRequest="500"
+            IndicatorView="indicator"
+            ItemsSource="{Binding AllPictures, Mode=OneTime}" >            
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout VerticalOptions="FillAndExpand">
+                        <Border Margin="0" Padding="0" VerticalOptions="FillAndExpand">
+                            <StackLayout >
+                                <Image                                     
+                                    Source="{Binding StringValue, Converter={StaticResource fileName}, FallbackValue='noimage.png', TargetNullValue='noimage.png'}" 
+                                        Aspect="AspectFit" VerticalOptions="FillAndExpand"/>                                
+                            </StackLayout>
+                        </Border>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <IndicatorView Grid.Row="1" x:Name="indicator" HorizontalOptions="Center"/>
+    </Grid>
+</ContentView>

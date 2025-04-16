@@ -3,18 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
              x:Class="JollyCactus.Maui.Views.PlantViews.PlantView">
-    <Grid ColumnDefinitions="*, auto" ColumnSpacing="5">
+    <Grid ColumnDefinitions="auto, *" ColumnSpacing="5">
 
         <controls:ViewPropertyPictureView 
-            Grid.Column="0"
-            VerticalOptions="Center" 
-            HeightRequest="50" 
-            WidthRequest="50" BindingContext="{Binding Picture}" />
+             HorizontalOptions="Start"
+             Grid.Column="0"
+             VerticalOptions="Center" 
+             HeightRequest="50" 
+             WidthRequest="50" 
+             BindingContext="{Binding Picture}" />  
 
+        <Grid RowDefinitions="auto, auto, auto" Grid.Column="1" HorizontalOptions="Fill">
+            <Grid Grid.Row="0" ColumnDefinitions="*, auto" ColumnSpacing="5" HorizontalOptions="Fill">
+                <Label Grid.Column="0" Text="{Binding Name}" Style="{StaticResource Headline}" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Start" />
+                <Label Grid.Column="1" Text="{Binding LocationName}" HorizontalOptions="End" HorizontalTextAlignment="End"/>              
+            </Grid>
+            <Grid Grid.Row="1" ColumnDefinitions="auto, auto" ColumnSpacing="10" HorizontalOptions="Fill">
+                <Label Grid.Column="0" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=BotanicalName}"/>
+                <Label Grid.Column="1" Text="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=Family}" /> 
+            </Grid>            
+            <Grid Grid.Row="2" ColumnDefinitions="auto, auto, auto" ColumnSpacing="10" HorizontalOptions="StartAndExpand" VerticalOptions="Fill">
+                <controls:ViewPropertyStateView 
+                    Grid.Column="0"
+                    HorizontalOptions="Start"                    
+                    HeightRequest="20" 
+                    WidthRequest="20" 
+                    BindingContext="{Binding State}"/>
+                <controls:ViewPropertySunlightView 
+                    Grid.Column="2"
+                    HorizontalOptions="Start"                    
+                    HeightRequest="20" 
+                    BindingContext="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=Sunlight}"/>
 
-        <Grid RowDefinitions="auto, auto" Grid.Column="1">            
-            <Label Grid.Row="0" FontAttributes="Bold" Text="{Binding Name}" />
-            <Label Grid.Row="1" Text="{Binding BotanicalName}" />
+                <controls:ViewPropertyWateringView 
+                    Grid.Column="1"
+                    HorizontalOptions="Start"                    
+                    HeightRequest="20" 
+                    WidthRequest="20" 
+                    BindingContext="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=Watering}"/>
+            </Grid>
         </Grid>        
     </Grid>
 </ContentView>

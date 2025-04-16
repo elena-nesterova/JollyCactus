@@ -24,14 +24,6 @@ namespace JollyCactus.Maui.Model
 
         public string DBValue { get; set; }
 
-        //[Ignore]
-        //public dynamic Value { get; set; }
-
-       
-        //public PlantProperty(string name, PlantPropertyType type)
-        //{
-        //    Name = name;
-        //    Type = type;
-        //}
+        
     }
 }

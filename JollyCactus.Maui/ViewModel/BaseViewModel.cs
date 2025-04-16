@@ -11,6 +11,7 @@ namespace JollyCactus.Maui.ViewModel
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         bool _isBusy = false;
+        bool _isChanged = false;
         string _title = "";
 
         public bool IsBusy { 
@@ -30,6 +31,16 @@ namespace JollyCactus.Maui.ViewModel
             {
                 if (_title == value) return;
                 _title = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsChanged
+        {
+            get => _isChanged;
+            set
+            {
+                if (_isChanged == value) return;
+                _isChanged = value;
                 OnPropertyChanged();
             }
         }

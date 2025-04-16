@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:JollyCactus.Maui.Views.Converters"
              x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ViewPropertyPictureView">
 
-    <Frame>
-        <Image Source="{Binding Value, FallbackValue='plantcolor.png', TargetNullValue='plantcolor.png'}" />
-    </Frame>
+    <ContentView.Resources>
+        <converter:FileNameToFullFileNameInAccountDirConverter x:Key="fileName" />
+    </ContentView.Resources>
+    
+    <Border Margin="0" Padding="0">
+        <Image Source="{Binding Value, Converter={StaticResource fileName}, FallbackValue='plantcolor.png', TargetNullValue='plantcolor.png'}" 
+               Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+    </Border>
 </ContentView>

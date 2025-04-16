@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:template="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyWateringView">
+    <ContentView.Resources>
+        <DataTemplate x:Key="Watering0">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=water1.png, Dark=water1dark.png}" MaximumHeightRequest="45" />
+                <Grid Grid.Column="1" RowDefinitions="auto, auto" VerticalOptions="Center">
+                    <Label Grid.Row="0"  Text="Very low water-use plant or air plant"  />
+                    <Label Grid.Row="1"  Text="(no more than 1 watering day every other week)" FontSize="12" />
+                </Grid>
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="Watering1">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=water2.png, Dark=water2dark.png}" MaximumHeightRequest="45" />
+                <Grid Grid.Column="1" RowDefinitions="auto, auto" VerticalOptions="Center">
+                    <Label Grid.Row="0"  Text="Low water-use plant"  />
+                    <Label Grid.Row="1"  Text="(1 watering day per week)" FontSize="12" />
+                </Grid>                
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="Watering2">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=water3.png, Dark=water3dark.png}" MaximumHeightRequest="45" />
+                <Grid Grid.Column="1" RowDefinitions="auto, auto" VerticalOptions="Center">
+                    <Label Grid.Row="0"  Text="Moderate water-use plant"  />
+                    <Label Grid.Row="1"  Text="(watering 2 times per week)" FontSize="12" />
+                </Grid>                
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="Watering3">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=water4.png, Dark=water4dark.png}" MaximumHeightRequest="45" />
+                <Grid Grid.Column="1" RowDefinitions="auto, auto" VerticalOptions="Center">
+                    <Label Grid.Row="0"  Text="High water-use plant"  />
+                    <Label Grid.Row="1"  Text="(watering 3 to 4 time per week)" FontSize="12" />
+                </Grid>                
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="Watering4">
+
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=water5.png, Dark=water5dark.png}" MaximumHeightRequest="45" />
+                <Grid Grid.Column="1" RowDefinitions="auto, auto" VerticalOptions="Center">
+                    <Label Grid.Row="0"  Text="Waterplant" />
+                    <Label Grid.Row="1"  Text="(can grow in water)" FontSize="12" />
+                </Grid>                
+            </Grid>
+
+        </DataTemplate>
+
+        <template:WateringTemplateSelector x:Key="WateringSelector" 
+                                WateringTemplate0="{StaticResource Watering0}"
+                                WateringTemplate1="{StaticResource Watering1}" 
+                                WateringTemplate2="{StaticResource Watering2}"
+                                WateringTemplate3="{StaticResource Watering3}"
+                                WateringTemplate4="{StaticResource Watering4}" />
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <CollectionView 
+        SelectionMode="Single"   
+        ItemsLayout="VerticalList"
+        ItemsSource = "{Binding AllPossibleValues}"
+        SelectedItem="{Binding Value, Mode=TwoWay}"
+        ItemTemplate="{StaticResource WateringSelector}">
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentView>

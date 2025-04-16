@@ -1,25 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
-             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyPictureView">
-    
-    <Grid RowDefinitions="auto, *, *" RowSpacing="10">
-        <Frame Grid.Row="0" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100">
-            <Image             
-                Source="{Binding Value, FallbackValue='plantcolor.png', TargetNullValue='plantcolor.png'}" />
-        </Frame>
-        <Button 
-            Grid.Row="1"
-            TextColor="Black"
-            HorizontalOptions="Fill"
-            Text="Choose picture..."
-            Clicked="OnChoosePictureClicked" />
-        <Button 
-            Grid.Row="2"
-            TextColor="Black"
-            HorizontalOptions="Fill"
-            Text="Camera..."
-            Clicked="OnCameraClicked" /> 
+             xmlns:converter="clr-namespace:JollyCactus.Maui.Views.Converters"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyPictureView"
+             x:Name="View">
+
+    <ContentView.Resources>
+        <converter:FileNameToFullFileNameInAccountDirConverter x:Key="fileName" />
+    </ContentView.Resources>
+
+    <Grid RowDefinitions="auto, auto" RowSpacing="10">
+        <Border Grid.Row="0" HorizontalOptions="Center" Margin="0" Padding="0" HeightRequest="200" WidthRequest="200">
+
+            <Image Source="{Binding Value, Converter={StaticResource fileName}, FallbackValue='noimage.png', TargetNullValue='noimage.png'}" Aspect="AspectFit" />
+            
+        </Border>
+        <VerticalStackLayout Grid.Row="1">
+            <Grid RowDefinitions="auto, *, *, *" RowSpacing="10">
+                <Label Grid.Row="0" Text="" />
+                <CollectionView    
+                    Grid.Row="1"      
+                    MinimumHeightRequest="3"
+                    SelectionMode="None"
+                    ItemsSource="{Binding AllPictures}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal"
+                                         HorizontalItemSpacing="5" VerticalItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>                   
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="50" WidthRequest="50" Margin="0" Padding="0" x:Name="border">
+                                <Border.Behaviors>
+                                    <toolkit:TouchBehavior
+                                        LongPressCommand="{Binding Source={x:Reference View}, Path=LongPressCommand, x:DataType=ContentView}" 
+                                        LongPressCommandParameter="{Binding Source={x:Reference border}, Path=BindingContext, x:DataType=Border}"
+                                        Command="{Binding Source={x:Reference View}, Path=TapCommand, x:DataType=ContentView}" 
+                                        CommandParameter="{Binding Source={x:Reference border}, Path=BindingContext, x:DataType=Border}" />
+                                </Border.Behaviors>
+                                <StackLayout>
+                                    <Image Source="{Binding StringValue, Converter={StaticResource fileName}, FallbackValue='noimage.png', TargetNullValue='noimage.png'}" 
+                                           Aspect="AspectFill" 
+                                           HorizontalOptions="Fill" 
+                                           VerticalOptions="Fill" />
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>            
+                <Button 
+                    Grid.Row="2"                    
+                    HorizontalOptions="Fill"
+                    Text="Choose a picture..."
+                    Clicked="OnChoosePictureClicked" />
+                <Button 
+                    Grid.Row="3"
+                    HorizontalOptions="Fill"
+                    Text="Camera..."
+                    Clicked="OnCameraClicked" />
+            </Grid>
+        </VerticalStackLayout>        
     </Grid>
 </ContentView>

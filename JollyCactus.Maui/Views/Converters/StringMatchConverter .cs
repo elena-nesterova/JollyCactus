@@ -36,4 +36,40 @@ namespace JollyCactus.Maui.Views.Converters
             return null;
         }
     }
+
+    public class StringNotMatchConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+
+            if (values.Length < 2)
+            {
+                return true;
+            }
+            if (values[0] == null)
+            {
+                return true;
+            }
+
+            for (int i = 1; i < values.Length; i++)
+            {
+                if (values[i] == null)
+                {
+                    return true;
+                }
+                if (!(values[0] as string).Equals(values[i] as string))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+
+        public object[] ConvertBack(object value, Type[] targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

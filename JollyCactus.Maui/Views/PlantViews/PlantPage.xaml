@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
+             xmlns:templates="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             xmlns:converter="clr-namespace:JollyCactus.Maui.Views.Converters"
+             x:Class="JollyCactus.Maui.Views.PlantPage"
+             Title="{Binding Name}" >
+    
+    <ContentPage.Resources>
+
+        <converter:StringNotMatchConverter x:Key ="StringNotMatchConverter" />     
+
+        <DataTemplate x:Key="PropertyString">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5" >
+                <Label Grid.Column="0" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name}" />                            
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyStringView Grid.Column="1" />                
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyNumber">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5" >
+                <Label Grid.Column="0" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyStringView Grid.Column="1" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyDate">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyDateView Grid.Column="1" />                
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyPicture">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyPictureViewWithGallery
+                    Grid.Column="1"   />                
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyStringsFromList">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyStringsFromListView Grid.Column="1"/>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyStringsFromListSunlight">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertySunlightView Grid.Column="1"/>                
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyOneFromList">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyStringView Grid.Column="1" />                
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyOneFromListState">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyStateView 
+                    Grid.Column="1" 
+                    MaximumHeightRequest="30" MaximumWidthRequest="30"
+                    HorizontalOptions="Start"/>                
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyOneFromListWatering">
+            <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                <Label Grid.Column="0" VerticalOptions="Center" Style="{StaticResource SubHeadline}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource StringNotMatchConverter}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="ParentName" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="Text" Value="{Binding Name, StringFormat='{0}:'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <controls:ViewPropertyWateringView 
+            Grid.Column="1" 
+            MaximumHeightRequest="30" MaximumWidthRequest="30"
+            HorizontalOptions="Start"/>
+            </Grid>
+        </DataTemplate>
+
+        <templates:PropertyTemplateSelector 
+            x:Key="PropertiesSelector" 
+            PropertyTemplateString="{StaticResource PropertyString}"
+            PropertyTemplateDate="{StaticResource PropertyDate}"
+            PropertyTemplatePicture="{StaticResource PropertyPicture}"
+            PropertyTemplateStringsFromListDefault="{StaticResource PropertyStringsFromList}"
+            PropertyTemplateStringsFromListSunlight="{StaticResource PropertyStringsFromListSunlight}"
+            PropertyTemplateOneFromListDefault="{StaticResource PropertyOneFromList}"
+            PropertyTemplateOneFromListState="{StaticResource PropertyOneFromListState}"
+            PropertyTemplateOneFromListWatering="{StaticResource PropertyOneFromListWatering}"
+            PropertyTemplateNumber="{StaticResource PropertyNumber}"/>
+
+    </ContentPage.Resources>
+    
+    <Grid Padding="5" RowSpacing="5" RowDefinitions="120, *, 55"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        
+        <Frame Grid.Row="0" Padding="5">
+            <VerticalStackLayout>
+                <Grid Padding="3" ColumnSpacing="5" RowSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackLayout Grid.Column="0" BindingContext="{Binding Picture}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPropertyTapped" />
+                        </StackLayout.GestureRecognizers>
+                        <controls:ViewPropertyPictureView  VerticalOptions="Center" HeightRequest="75" WidthRequest="75" BindingContext="{Binding .}" >
+                            <ContentView.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPropertyTapped" />
+                            </ContentView.GestureRecognizers>
+                        </controls:ViewPropertyPictureView>
+                    </StackLayout>
+
+                    <controls:ViewPropertyStateView Grid.Column="1" VerticalOptions="Center" HeightRequest="75" WidthRequest="75" BindingContext="{Binding State}" />
+                   
+                </Grid>
+
+                <Border Style="{StaticResource Colored}" HorizontalOptions="Start" Padding="2">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnLocationTapped" />
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding LocationName}" Style="{StaticResource Headline}" />
+                </Border>
+                
+            </VerticalStackLayout>
+        </Frame>        
+        <CollectionView Grid.Row="1"
+                VerticalScrollBarVisibility="Always"
+                x:Name="cvProperties"
+                Margin="0,10"
+                ItemsSource="{Binding PlantPropertiesByGroups}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Spacing="10">
+                        <Label Text="{Binding GroupName}" Style="{StaticResource Headline}" />
+                        <Frame>
+                            <VerticalStackLayout>
+                                <CollectionView ItemsSource="{Binding Properties}">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            
+                                            <Grid RowDefinitions="auto, auto, auto" HorizontalOptions="FillAndExpand">
+                                                <StackLayout>
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPropertyTapped" />
+                                                    </StackLayout.GestureRecognizers>
+                                                    <Label Grid.Row="0" Text="{Binding Name}" Style="{StaticResource Headline}" />
+                                                    <CollectionView Grid.Row="1"                                                             
+                                                                HorizontalOptions="FillAndExpand"
+                                                                ItemsSource="{Binding SubProperties}"
+                                                                ItemTemplate="{StaticResource PropertiesSelector}">
+                                                    </CollectionView>
+                                                    <Line Grid.Row="2" X2="{Binding Width, Source={RelativeSource Self}}" />
+                                                </StackLayout>
+                                            </Grid>
+                                            
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Frame> 
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid Grid.Row="2" Padding="0" ColumnSpacing="5" VerticalOptions="Start">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="0"
+                x:Name="btnPropertyCancel"
+                Text="Cancel" 
+                SemanticProperties.Hint="Cancel"
+                Clicked="OnCancelClicked"                
+                VerticalOptions="End"/>
+            <Button
+                Grid.Column="1"
+                x:Name="btnPropertyOk"
+                Text="Save"                 
+                SemanticProperties.Hint="Save property"
+                Clicked="OnOkClicked"                
+                VerticalOptions="End"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>

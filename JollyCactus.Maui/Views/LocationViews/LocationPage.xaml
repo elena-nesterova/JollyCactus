@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JollyCactus.Maui.Views.LocationPage" >
+    <VerticalStackLayout VerticalOptions="Fill"
+        Padding="15,0"
+        Spacing="5" >        
+        <Label Text=""/>
+        <Label Text="Name:" Style="{StaticResource Headline}" />
+        <Entry            
+            x:Name="entryName"
+            Text="{Binding Name, Mode=TwoWay}"
+            Placeholder="Room name" 
+            HorizontalOptions="Fill"
+            FontAttributes="Bold" />        
+        <Label 
+            Text="Note:" Style="{StaticResource Headline}" />
+        <Editor
+            x:Name="editorNote"
+            Text="{Binding Note, Mode=TwoWay}"            
+            HorizontalOptions="Fill"
+            MinimumHeightRequest="100"
+            VerticalOptions="Fill"            
+            />        
+        <Button
+            x:Name="btnAddLocationOk"
+            Text="Save location" 
+            SemanticProperties.Hint="Save location"
+            Clicked="OnBtnAddLocationOkClicked"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End"/>        
+    </VerticalStackLayout>
+</ContentPage> 

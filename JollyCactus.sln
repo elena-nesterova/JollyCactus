@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JollyCactus.Maui", "JollyCactus.Maui\JollyCactus.Maui.csproj", "{45965D9C-FAAD-4FE1-8622-B8DFBB8F99F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JollyCactus.Maui.Test", "JollyCactus.Maui.Test\JollyCactus.Maui.Test.csproj", "{20D658B9-3289-40A1-A01F-1F24644CBC8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{45965D9C-FAAD-4FE1-8622-B8DFBB8F99F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45965D9C-FAAD-4FE1-8622-B8DFBB8F99F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45965D9C-FAAD-4FE1-8622-B8DFBB8F99F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{20D658B9-3289-40A1-A01F-1F24644CBC8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20D658B9-3289-40A1-A01F-1F24644CBC8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20D658B9-3289-40A1-A01F-1F24644CBC8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20D658B9-3289-40A1-A01F-1F24644CBC8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

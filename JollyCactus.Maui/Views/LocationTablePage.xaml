@@ -1,109 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.LocationViews"
              x:Class="JollyCactus.Maui.Views.LocationTablePage"       
              Title="Home">
-    <ContentPage.ToolbarItems>
-    <ToolbarItem 
-            Text="Add location"
-            IconImageSource="close.png" 
-            Clicked="OnRemoveAllClicked"/>
-    <ToolbarItem 
-        Text="Remove all"
-        IconImageSource="add.png" 
-        Clicked="OnAddLocationClicked"/>
-    </ContentPage.ToolbarItems>
-    <VerticalStackLayout
-        Spacing="5"
-        Padding="5,0">
-        <ListView
-            x:Name="lvLocations" 
-            ItemsSource="{Binding Locations}"
-            ItemTapped="lvLocationsItemTapped"
-            BackgroundColor="Transparent"
-            SeparatorColor="LightSlateGray"
-            VerticalOptions="FillAndExpand">   
-            
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />                                
-                            </Grid.ColumnDefinitions>
-                            
-                            <Label 
-                                Grid.Row="0" Grid.Column="0"
-                                Text="{Binding Name}"
-                                FontSize="14"
-                                FontAttributes="Bold"
-                                HorizontalOptions="FillAndExpand"/>
-                            <Label 
-                                Grid.Row="1" Grid.Column="0" 
-                                Text="{Binding Note}" 
-                                LineBreakMode="TailTruncation"
-                                />
-                            <Grid
-                                Grid.Row="0" Grid.RowSpan ="2" Grid.Column="1" 
-                                ColumnSpacing="3"
-                                HorizontalOptions="End">
-                                <Grid.ColumnDefinitions>                                     
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <Button   
-                                    Grid.Column="0"
-                                    x:Name="btnAddPlant"
-                                    ImageSource="addplant.png" 
-                                    MaximumHeightRequest="40"
-                                    MaximumWidthRequest="50"
-                                    BackgroundColor="Transparent"
-                                    SemanticProperties.Hint="Add plant"
-                                    Clicked="OnAddPlantClicked"
-                                    VerticalOptions="Start" />
-                                <Button   
-                                    Grid.Column="1"
-                                    x:Name="btnEditLocation"
-                                    ImageSource="edit.png" 
-                                    MaximumHeightRequest="40"
-                                    MaximumWidthRequest="50"
-                                    BackgroundColor="Transparent"
-                                    SemanticProperties.Hint="Edit location"
-                                    Clicked="OnEditLocationClicked"
-                                    VerticalOptions="Start" />
-                                <Button       
-                                    Grid.Column="2"                                    
-                                    x:Name="btnDeleteLocation"
-                                    ImageSource="delete.png" 
-                                    MaximumHeightRequest="40"
-                                    MaximumWidthRequest="50"
-                                    BackgroundColor="Transparent"
-                                    SemanticProperties.Hint="Delete location"                                
-                                    Clicked="OnDeleteLocationClicked"
-                                    VerticalOptions="Start" />
-                            </Grid>                                
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>   
+
+    <Grid 
+        RowDefinitions="*, 55" 
+        Padding="5"
+        RowSpacing="5" >
+
+        <ScrollView  Grid.Row="0"  Padding="0" VerticalOptions="Start">
+            <CollectionView Margin="0,10" ItemsSource="{Binding Locations}" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*" 
+                              IsVisible="{Binding IsRoot, Converter={StaticResource InvertedBoolConverter}}">
+                            <Grid.Triggers>
+                                <!-- Height -->
+                                <Trigger 
+                                    TargetType="Grid"
+                                    Property="IsVisible" Value="False">
+                                    <Setter Property="HeightRequest" Value="0" />
+                                </Trigger>
+                            </Grid.Triggers>
+                            <SwipeView VerticalOptions="Fill" Grid.Column="0">
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItemView>
+                                        <Border MinimumWidthRequest="{Binding Height, Source={RelativeSource Self}}">
+                                            <ImageButton 
+                                                Source="{AppThemeBinding Light=addplant.png, Dark=addplant.png}"                                            
+                                                MaximumHeightRequest="40"
+                                                MaximumWidthRequest="40"
+                                                BackgroundColor="Transparent"
+                                                SemanticProperties.Hint="Add plant"
+                                                Clicked="OnAddPlantClicked"
+                                                VerticalOptions="Center"/>
+                                        </Border>
+                                    </SwipeItemView>
+                                    <SwipeItemView VerticalOptions="Center">
+                                        <Border MinimumWidthRequest="{Binding Height, Source={RelativeSource Self}}">
+                                            <ImageButton 
+                                                Source="{AppThemeBinding Light=delete.png, Dark=deletedark.png}"                                            
+                                                MaximumHeightRequest="40"
+                                                MaximumWidthRequest="40"
+                                                BackgroundColor="Transparent"
+                                                Clicked="OnDeleteLocationClicked"
+                                                VerticalOptions="Center"/>      
+                                        </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Border>                                
+                                <VerticalStackLayout>
+                                    <Grid ColumnDefinitions="*, auto"
+                                          IsVisible="{Binding IsRoot, Converter={StaticResource InvertedBoolConverter}}" >
+                                        <Grid.Triggers>
+                                            <!-- Height -->
+                                            <Trigger 
+                                                TargetType="Grid"
+                                                Property="IsVisible" Value="False">
+                                                <Setter Property="HeightRequest" Value="0" />
+                                            </Trigger>
+                                            <Trigger 
+                                                TargetType="Grid"
+                                                Property="IsVisible" Value="True">
+                                                
+                                            </Trigger>
+                                        </Grid.Triggers>
+                                        <StackLayout Grid.Column="0" HorizontalOptions="Fill">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnEditLocationClicked" />
+                                            </StackLayout.GestureRecognizers>
+                                            <controls:LocationView BindingContext="{Binding .}"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </SwipeView>
                         </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button                     
-            x:Name="btnAddLocation"
-            ImageSource="Add.png" 
-            Text="Add location"            
-            TextColor="Black"
-            FontSize="14"
-            SemanticProperties.Hint="Add location"                                
-            Clicked="OnAddLocationClicked"
-            MaximumHeightRequest="50"
-            HorizontalOptions="Fill"
-            VerticalOptions="End" />           
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>      
         
-    </VerticalStackLayout>
+        <Grid ColumnDefinitions="*" Grid.Row="1" RowSpacing="5" VerticalOptions="Start">
+            <Button Grid.Column="0"    
+                IsEnabled="{Binding IsLoaded}"
+                MaximumHeightRequest="50"
+                Text="Add location"   
+                SemanticProperties.Hint="Add location"
+                Clicked="OnAddLocationClicked" 
+                HorizontalOptions="Fill"/>
+        </Grid>
+
+    </Grid>
 </ContentPage>

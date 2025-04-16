@@ -1,22 +1,17 @@
-﻿using System.Data.Common;
+﻿using JollyCactus.Maui.Settings;
+
 
 namespace JollyCactus.Maui
 {
     public partial class App : Application
     {
-        static Data.LocalDbService _database;
+        static Data.LocalDbService _database = null;
 
         public App()
         {
             InitializeComponent();
-
-            var db = new Data.LocalDbService(JollyCactusPaths.GetDatabasePath());
-
-            if (db == null)
-            {
-                throw new System.Data.DataException();
-            }
-            _database = db;
+            
+            
 
             MainPage = new AppShell();
         }
@@ -25,8 +20,22 @@ namespace JollyCactus.Maui
         {
             get
             {
+                if (_database == null)
+                {
+                    var jcSettings = Application.Current.MainPage.Handler.MauiContext.Services.GetService<JCSettings>();
+
+                    var db = new Data.LocalDbService(jcSettings.CurrentDbFullFileName);
+
+                    if (db == null)
+                    {
+                        throw new System.Data.DataException();
+                    }
+
+                    _database = db;
+                }
                 return _database;
             }
         }
+
     }
 }

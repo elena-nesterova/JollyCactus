@@ -6,19 +6,30 @@
     xmlns:local="clr-namespace:JollyCactus.Maui"
     xmlns:views="clr-namespace:JollyCactus.Maui.Views"
     Shell.FlyoutBehavior="Disabled"    
-    IconImageSource="cactus.png">
+    IconImageSource="cactus.png">    
+    
     <TabBar>
-        <Tab Title="Home">
-            <ShellContent 
-                Title="Home"
-                ContentTemplate="{DataTemplate views:LocationTablePage}" 
-                Route="LocationTablePage" />
-        </Tab>
-        <Tab Title="Plants">
+        <Tab Title="Plants" Icon="Plant.png">
             <ShellContent 
                 Title="Plants"
+                Icon="Plant.png"
                 ContentTemplate="{DataTemplate views:PlantTablePage}" 
                 Route="PlantTablePage" />
         </Tab>
-    </TabBar>
+        <Tab Title="Home" Icon="Home.png">
+            <ShellContent 
+                Title="Home"
+                Icon="Home.png"
+                ContentTemplate="{DataTemplate views:LocationTablePage}" 
+                Route="LocationTablePage" />
+        </Tab>
+        <Tab Title="Settings" Icon="settings.png">
+            <ShellContent 
+                Title="Settings"
+                Icon="settings.png"
+                ContentTemplate="{DataTemplate views:SettingsPage}" 
+                Route="SettingsPage" />
+        </Tab>
+    </TabBar>    
+    
 </Shell>

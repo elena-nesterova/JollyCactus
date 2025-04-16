@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:model="clr-namespace:JollyCactus.Maui.ViewModel"
+             xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews"
+             xmlns:templates="clr-namespace:JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors"
+             x:Class="JollyCactus.Maui.Views.ModifyPropertyPage"
+             Title="ModifyPropertyPage">
+    
+    <ContentPage.Resources>
+        
+        <DataTemplate x:Key="PropertyString">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyStringView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyNumber">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyNumberView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyDate">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyDateView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyPicture">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyPictureView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyStringsFromList">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyStringsFromListView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyStringsFromListSunlight">            
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertySunlightView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>            
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyOneFromList">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyOneFromListView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="PropertyOneFromListState">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyStateView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+
+        <DataTemplate x:Key="PropertyOneFromListWatering">
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" Style="{StaticResource Headline}"/>
+                <Frame>
+                    <VerticalStackLayout>
+                        <controls:ModifyPropertyWateringView/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </DataTemplate>
+
+        <templates:PropertyTemplateSelector x:Key="PropertiesModifySelector" 
+            PropertyTemplateString="{StaticResource PropertyString}"
+            PropertyTemplateDate="{StaticResource PropertyDate}"
+            PropertyTemplatePicture="{StaticResource PropertyPicture}"
+            PropertyTemplateStringsFromListDefault="{StaticResource PropertyStringsFromList}"
+            PropertyTemplateStringsFromListSunlight="{StaticResource PropertyStringsFromListSunlight}"
+            PropertyTemplateOneFromListDefault="{StaticResource PropertyOneFromList}"
+            PropertyTemplateOneFromListState="{StaticResource PropertyOneFromListState}"
+            PropertyTemplateOneFromListWatering="{StaticResource PropertyOneFromListWatering}"
+            PropertyTemplateNumber="{StaticResource PropertyNumber}"/>
+        
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+
+        <Grid 
+            Padding="5"
+            RowSpacing="15" RowDefinitions="*, 55"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill">
+
+            <VerticalStackLayout Grid.Row="0" VerticalOptions="Start">
+                <Label Text="{Binding Description}" Style="{StaticResource SubHeadline}"/>
+                <CollectionView            
+                ItemsSource="{Binding SubProperties}"
+                ItemTemplate="{StaticResource PropertiesModifySelector}">
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <Grid Grid.Row="1" ColumnSpacing="5" ColumnDefinitions="*,*" VerticalOptions="Start">
+                <Button
+                    Grid.Column="0"
+                    x:Name="btnPropertyCancel"
+                    Text="Cancel" 
+                    SemanticProperties.Hint="Cancel"
+                    Clicked="OnCancelClicked"                        
+                    VerticalOptions="End"/>
+                <Button
+                    Grid.Column="1"
+                    x:Name="btnPropertyOk"
+                    Text="Save"                 
+                    SemanticProperties.Hint="Save property"
+                    IsEnabled="{Binding IsChanged}"
+                    Clicked="OnOkClicked"                        
+                    VerticalOptions="End"/>
+            </Grid>
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

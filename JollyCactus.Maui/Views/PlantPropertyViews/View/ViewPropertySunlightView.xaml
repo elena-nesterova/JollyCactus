@@ -6,29 +6,29 @@
 
     <ContentView.Resources>
         <DataTemplate x:Key="Light0">
-            <VerticalStackLayout>
-                <Image Source="light1.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
-            </VerticalStackLayout>
+            <Border StrokeShape="Rectangle" Stroke="Transparent"  Padding="1" VerticalOptions="Fill">
+                <Image Source="{AppThemeBinding Light=light1.png, Dark=light1dark.png}" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Light1">
-            <VerticalStackLayout>
-                <Image Source="light2.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
-            </VerticalStackLayout>
+            <Border StrokeShape="Rectangle" Stroke="Transparent"  Padding="1" VerticalOptions="Fill">
+                <Image Source="{AppThemeBinding Light=light2.png, Dark=light2dark.png}" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Light2">
-            <VerticalStackLayout>
-                <Image Source="light3.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
-            </VerticalStackLayout>
+            <Border StrokeShape="Rectangle" Stroke="Transparent"  Padding="1" VerticalOptions="Fill">
+                <Image Source="{AppThemeBinding Light=light3.png, Dark=light3dark.png}" MaximumHeightRequest="30" HorizontalOptions="Start" VerticalOptions="Fill"/>
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Light3">
-            <VerticalStackLayout>
-                <Image Source="light4.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
-            </VerticalStackLayout>
+            <Border StrokeShape="Rectangle" Stroke="Transparent"  Padding="1" VerticalOptions="Fill">
+                <Image Source="{AppThemeBinding Light=light4.png, Dark=light4dark.png}" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </Border>
         </DataTemplate>
         <DataTemplate x:Key="Light4">
-            <VerticalStackLayout>
-                <Image Source="light5.png" MaximumHeightRequest="30" HorizontalOptions="Start" />
-            </VerticalStackLayout>
+            <Border StrokeShape="Rectangle" Stroke="Transparent"  Padding="1" VerticalOptions="Fill">
+                <Image Source="{AppThemeBinding Light=light5.png, Dark=light5dark.png}" MaximumHeightRequest="30" HorizontalOptions="Start" />
+            </Border>
         </DataTemplate>
         <template:LightTemplateSelector x:Key="LightSelector" 
                                         LightTemplate0="{StaticResource Light0}"
@@ -38,7 +38,8 @@
                                         LightTemplate4="{StaticResource Light4}" />
     </ContentView.Resources>
 
-    <CollectionView 
+    <CollectionView  
+        VerticalOptions="Fill"
         ItemsLayout="HorizontalList"
         ItemsSource="{Binding Value}"
         ItemTemplate="{StaticResource LightSelector}">

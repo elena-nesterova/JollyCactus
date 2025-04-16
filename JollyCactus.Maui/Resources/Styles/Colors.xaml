@@ -6,17 +6,15 @@
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
+    <Color x:Key="Primary">#85BD77</Color>
+    <Color x:Key="PrimaryDark">#B3E3B6</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="Secondary">#E9FFE8</Color>
+    <Color x:Key="SecondaryDarkText">#ADDBB0</Color>
+    <Color x:Key="Tertiary">#526954</Color>
 
     <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
+    <Color x:Key="Black">Black</Color>    
     <Color x:Key="OffBlack">#1f1f1f</Color>
 
     <Color x:Key="Gray100">#E1E1E1</Color>
@@ -28,9 +26,11 @@
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
-    <Color x:Key="GreenBackground">#B3E3B6</Color>
+    <Color x:Key="GreenBackgroundLight">#E9FFE8</Color>
     <Color x:Key="GreenMainLight">#85BD77</Color>
-    <Color x:Key="GreenMainDark">#30452B</Color>
+    <Color x:Key="GreenMainDark">#4F7047</Color>
+    <Color x:Key="GreenDark">#344A2F</Color>
+    <Color x:Key="GreenText">#228B22</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>

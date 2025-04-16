@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using static SQLite.SQLite3;
 
 namespace JollyCactus.Maui.ViewModel.PlantProperties
 {
     public class PlantPropertyStringsFromListOneString
     {
-        public string StringValue { get; set; } = "";
+        public string StringValue { get; set; } = string.Empty;
         //public bool IsActive { get; set;  } = false;
     }
 
 
-    //public class PlantPropertyStringsFromListVM : PlantPropertyVM<ObservableCollection<string>>//<PlantPropertyStringsFromListOneString>>
     public class PlantPropertyStringsFromListVM : PlantPropertyVM<ObservableCollection<PlantPropertyStringsFromListOneString>>
     {
-        //public ObservableCollection<string> AllPossibleValues { get; set; }
         public ObservableCollection<PlantPropertyStringsFromListOneString> AllPossibleValues { get; private set; }
 
         public ObservableCollection<object> SelectedObjects { get; set; }
@@ -28,50 +20,59 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
         public ICommand SelectedValuesChangedCommand { get; set; }
     
 
-        public PlantPropertyStringsFromListVM(string name, string description, string persistenceStringValue = "") :
-            base(name, description)
+        public PlantPropertyStringsFromListVM(string name, string description, string parentName, string persistenceStringValue = "") :
+            base(name, description, parentName)
         {           
             Value = new();
             AllPossibleValues = new();
             SelectedObjects = new();
-            List<string> allValues = null;
+            List<string>? allValues = null;
 
             if (Model.PlantPropertiesValues.PlantPropertiesValuesDict.ContainsKey(Name))
                 allValues = Model.PlantPropertiesValues.PlantPropertiesValuesDict[Name];
 
-            Debug.Assert(allValues != null);
+            if (allValues == null)
+                if (Model.PlantPropertiesValues.PlantPropertiesValuesDict.ContainsKey(ParentName))
+                    allValues = Model.PlantPropertiesValues.PlantPropertiesValuesDict[ParentName];
 
-            foreach (string val in allValues)
-            {
-                //AllPossibleValues.Add(val);
-                AllPossibleValues.Add(new PlantPropertyStringsFromListOneString() { StringValue = val});
-            }
+            //Debug.Assert(allValues != null);
 
-            if (!string.IsNullOrEmpty(persistenceStringValue))
+            if (allValues != null)
+
             {
-                var values = persistenceStringValue.Split(',', StringSplitOptions.TrimEntries);
-                if (values != null)
+                foreach (string val in allValues)
                 {
-                    foreach (string val in values)
-                    {
-                        var toValue = AllPossibleValues.FirstOrDefault(x => x.StringValue.Equals(val), null);
-                        if (toValue != null)
-                        {
-                            Value.Add(toValue);
-                            SelectedObjects.Add(toValue);
-                        }
-                        //if(AllPossibleValues.Contains(val))
-                        //    Value.Add(val);
-
-                    }
-                    /*foreach (var val in Value)
-                    {
-                        val.IsActive = values.Any(x => x.Equals(val.StringValue));                        
-                    }*/
+                    //AllPossibleValues.Add(val);
+                    AllPossibleValues.Add(new PlantPropertyStringsFromListOneString() { StringValue = val});
                 }
-            }
 
-            SelectedValuesChangedCommand = new Command<object>(SelectedValuesChanged);
+                if (!string.IsNullOrEmpty(persistenceStringValue))
+                {
+                    var values = persistenceStringValue.Split(',', StringSplitOptions.TrimEntries);
+                    if (values != null)
+                    {
+                        foreach (string val in values)
+                        {
+                            var toValue = AllPossibleValues.FirstOrDefault(x => x.StringValue.Equals(val), null);
+                            if (toValue != null)
+                            {
+                                Value.Add(toValue);
+                                SelectedObjects.Add((object)toValue);
+                            }
+                            //if(AllPossibleValues.Contains(val))
+                            //    Value.Add(val);
+
+                        }
+                        /*foreach (var val in Value)
+                        {
+                            val.IsActive = values.Any(x => x.Equals(val.StringValue));                        
+                        }*/
+                    }
+                }
+
+                SelectedValuesChangedCommand = new Command<object>(SelectedValuesChanged);
+            }
+            IsChanged = false;
         }
 
         public override Model.PlantPropertyType PropertyType => Model.PlantPropertyType.PlantPropertyStringsFromList;
@@ -79,6 +80,8 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
 
         public override void UpdateFrom(PlantPropertyVM property)
         {
+            Debug.WriteLine("JC: PlantPropertyStringsFromListOneString.UpdateFrom - " + ToString());
+
             if (property is PlantPropertyStringsFromListVM propTyped)
             {
                 Value.Clear();
@@ -106,8 +109,9 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
 
         public override object Clone()
         {
-            var clone = new PlantPropertyStringsFromListVM(Name, Description);
+            Debug.WriteLine("JC: PlantPropertyStringsFromListOneString.Clone - " + ToString());
 
+            var clone = new PlantPropertyStringsFromListVM(Name, Description, ParentName);
             
             foreach (var val in Value)
             {
@@ -116,16 +120,19 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
                 if (toValue != null)
                 {
                     clone.Value.Add(toValue);
-                    clone.SelectedObjects.Add(toValue);
+                    clone.SelectedObjects.Add((object)toValue);
                 }
             }
-            
+
+            Debug.WriteLine("JC: PlantPropertyStringsFromListOneString.Clone end - " + clone.ToString());
             return clone;
         }
 
         public override string ToString()
         {
-            //return string.Join(",", Value);
+            if (Value.Count == 0)
+                return string.Empty;
+
             return string.Join(",", Value.Select(x => x.StringValue).ToList());
         }
 
@@ -137,7 +144,7 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
                 if (val is PlantPropertyStringsFromListOneString valTyped)
                     Value.Add(valTyped);
             }
-            
+            IsChanged = true;
             OnPropertyChanged(nameof(Value));
         }
     }

@@ -9,7 +9,7 @@
         <DataTemplate x:Key="Light0">
             
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="light1.png" MaximumHeightRequest="45" />
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=light1.png, Dark=light1dark.png}" MaximumHeightRequest="45" />
                 <Label Grid.Column="1" Text="Full shade" VerticalTextAlignment="Center"/>
             </Grid>
             
@@ -17,7 +17,7 @@
         <DataTemplate x:Key="Light1">
             
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="light2.png" MaximumHeightRequest="45" />
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=light2.png, Dark=light2dark.png}" MaximumHeightRequest="45" />
                 <Label Grid.Column="1" Text="Dappled sun" VerticalTextAlignment="Center" />
             </Grid>
             
@@ -25,7 +25,7 @@
         <DataTemplate x:Key="Light2">
             
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="light3.png" MaximumHeightRequest="45" />
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=light3.png, Dark=light3dark.png}" MaximumHeightRequest="45" />
                 <Label Grid.Column="1" Text="Partial shade" VerticalTextAlignment="Center" />
             </Grid>
             
@@ -33,7 +33,7 @@
         <DataTemplate x:Key="Light3">
             
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="light4.png" MaximumHeightRequest="45" />
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=light4.png, Dark=light4dark.png}" MaximumHeightRequest="45" />
                 <Label Grid.Column="1" Text="Partial sun" VerticalTextAlignment="Center" />
             </Grid>
             
@@ -41,7 +41,7 @@
         <DataTemplate x:Key="Light4">
             
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="light5.png" MaximumHeightRequest="45" />
+                <Image Grid.Column="0" Source="{AppThemeBinding Light=light5.png, Dark=light5dark.png}" MaximumHeightRequest="45" />
                 <Label Grid.Column="1" Text="Full sun" VerticalTextAlignment="Center" />
             </Grid>
             

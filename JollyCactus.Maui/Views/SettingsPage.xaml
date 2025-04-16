@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JollyCactus.Maui.Views.SettingsPage"
+             Title="Settings">
+    <Grid 
+        RowDefinitions="auto, auto" 
+        Padding="5"
+        RowSpacing="5"
+        >
+
+        <Border Grid.Row="0">
+            <VerticalStackLayout >
+
+                <Button Grid.Column="0"                
+                    Style="{StaticResource LinkButton}"
+                    Text="New account"    
+                    HorizontalOptions="Start"
+                    Clicked="OnAddAccountClicked" />
+
+                <Button Grid.Column="0"                
+                    Style="{StaticResource LinkButton}"
+                    Text="Import account from file"
+                    HorizontalOptions="Start"
+                    Clicked="OnImportAccountClicked" />
+
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Row="1">
+            <VerticalStackLayout>
+
+                <Label Text="Account:" Style="{StaticResource Headline}" />
+
+                <Picker                         
+                    Title="Choose an account"
+                    ItemsSource="{Binding Accounts, Mode=OneWay}"                    
+                    SelectedItem="{Binding CurrentAccount, Mode=TwoWay}"                     
+                    SelectedIndexChanged="OnAccountChanged"
+                    FontSize="Subtitle" 
+                    ItemDisplayBinding="{Binding Name}">                   
+                </Picker>
+
+                <HorizontalStackLayout>
+                    <Label Text="Account name:" VerticalTextAlignment="Center"/>
+                    <Entry Text="{Binding CurrentAccount.Name, Mode=TwoWay}" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Cold season:" VerticalOptions="Center"/>
+                    <Switch x:Name="seasonSwitch" IsToggled="True" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <Grid ColumnDefinitions="*, 2*, *, 2*" 
+                    IsVisible="{Binding x:DataType='Switch', Source={x:Reference seasonSwitch}, Path=IsToggled}">
+                    <Grid.Triggers>
+                        <!-- Height -->
+                        <Trigger 
+                                TargetType="Grid"
+                                Property="IsVisible" Value="False">
+                            <Setter Property="HeightRequest" Value="0" />
+                        </Trigger>
+                        <Trigger 
+                                TargetType="Grid"
+                                Property="IsVisible" Value="True">
+                            <Setter Property="HeightRequest" Value="50" />
+                        </Trigger>
+                    </Grid.Triggers>
+                    <Label Grid.Column="0" Text="From: "/>
+                    <Picker Grid.Column="1" x:Name="coldSeasonFrom"/>
+                    <Label Grid.Column="2" Text="To: "/>
+                    <Picker Grid.Column="3" x:Name="coldSeasonTo"/>
+                </Grid>
+                <Button               
+                    Style="{StaticResource LinkButton}"
+                    Text="Share account data"   
+                    HorizontalOptions="Start"                            
+                    Clicked="OnShareAccountClicked" />                
+                <Button               
+                    Style="{StaticResource LinkButton}"
+                    Text="Clear account (delete all locations with plants)" 
+                    HorizontalOptions="Start"
+                    Clicked="OnClearAccountClicked" />
+                <Button               
+                    Style="{StaticResource LinkButton}"
+                    Text="Delete account" 
+                    HorizontalOptions="Start"
+                    Clicked="OnDeleteAccountClicked" />
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+
+</ContentPage>

@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace JollyCactus.Maui.ViewModel.PlantProperties
 {
     public class PlantPropertyOneFromListVM : PlantPropertyVM<string>
     {
         public ObservableCollection<string> AllPossibleValues { get; private set; }
-           
-
-        //public ICommand SelectedValuesChangedCommand { get; set; }
-
-
-        public PlantPropertyOneFromListVM(string name, string description, string persistenceStringValue = "") :
-            base(name, description)
+       
+        public PlantPropertyOneFromListVM(string name, string description, string parentName, string persistenceStringValue = "") :
+            base(name, description, parentName)
         {
             AllPossibleValues = new();
             
@@ -26,6 +16,10 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
             
             if (Model.PlantPropertiesValues.PlantPropertiesValuesDict.ContainsKey(Name))
                 allValues = Model.PlantPropertiesValues.PlantPropertiesValuesDict[Name];
+
+            if (allValues == null)
+                if (Model.PlantPropertiesValues.PlantPropertiesValuesDict.ContainsKey(ParentName))
+                    allValues = Model.PlantPropertiesValues.PlantPropertiesValuesDict[ParentName];
 
             Debug.Assert(allValues != null);
 
@@ -43,9 +37,10 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
             }
 
             if (string.IsNullOrEmpty(Value))
-                Value = AllPossibleValues[AllPossibleValues.Count - 1];
+                Value = AllPossibleValues[(AllPossibleValues.Count - 1)/2];
 
-            //SelectedValuesChangedCommand = new Command<object>(SelectedValuesChanged);
+            IsChanged = false;
+            
         }
 
         public override Model.PlantPropertyType PropertyType => Model.PlantPropertyType.PlantPropertyOneFromList;
@@ -69,7 +64,7 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
 
         public override object Clone()
         {
-            var clone = new PlantPropertyOneFromListVM(Name, Description, Value);
+            var clone = new PlantPropertyOneFromListVM(Name, Description, ParentName, Value);
 
             return clone;
         }
@@ -77,18 +72,6 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
         public override string ToString()
         {
             return Value;
-        }
-
-       /* public void SelectedValuesChanged(object obj)
-        {
-            Value.Clear();
-            foreach (var val in SelectedObjects)
-            {
-                if (val is PlantPropertyStringsFromListOneString valTyped)
-                    Value.Add(valTyped);
-            }
-
-            OnPropertyChanged(nameof(Value));
-        }*/
+        }       
     }
 }

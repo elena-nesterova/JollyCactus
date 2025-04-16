@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ModifyPropertyStringWithOptionsView">
+    <VerticalStackLayout>
+        <Entry Text="{Binding Value, Mode=TwoWay}" TextChanged="OnTextChanged"/>
+
+        <ListView
+            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type ContentView}}, Path=Options}"
+            ItemSelected="OnOptionSelected"
+            SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentView>

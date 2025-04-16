@@ -11,6 +11,8 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
     {
         public string Name { get; set; }
 
+        public string ParentName { get; set; }
+
         public abstract Model.PlantPropertyType PropertyType { get; }
 
         public string Description { get; set; }
@@ -19,11 +21,12 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
 
 
 
-        protected PlantPropertyVM(string name, string description)
+        protected PlantPropertyVM(string name, string description, string parentName)
         {
             Name = name;
             Description = description;
             IsDisplay = true;
+            ParentName = parentName;
         }
 
         /*protected PlantPropertyVM(PlantPropertyVM propertyVM)
@@ -49,7 +52,7 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
         //{
         //}
 
-        protected PlantPropertyVM(string name, string description) : base(name, description)
+        protected PlantPropertyVM(string name, string description, string parentName) : base(name, description, parentName)
         {
         }
 
@@ -61,6 +64,7 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
                 if (_value == null || !_value.Equals(value))
                 {
                     _value = value;
+                    IsChanged = true;
                     OnPropertyChanged(nameof(Value));
                 }
             }

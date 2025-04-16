@@ -8,7 +8,11 @@
         <DataTemplate x:Key="State0">
 
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="statebad.png" BackgroundColor="Red" MaximumHeightRequest="45" />
+                <Frame HeightRequest="45" WidthRequest="45" BackgroundColor="Red">
+                    <VerticalStackLayout>
+                        <Image Grid.Column="0" Source="statebad.png" />
+                    </VerticalStackLayout>
+                </Frame>
                 <Label Grid.Column="1" Text="Very bad" VerticalTextAlignment="Center"/>
             </Grid>
 
@@ -16,7 +20,11 @@
         <DataTemplate x:Key="State1">
 
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="statebad.png" BackgroundColor="Orange" MaximumHeightRequest="45" />
+                <Frame HeightRequest="45" WidthRequest="45" BackgroundColor="Orange">
+                    <VerticalStackLayout>
+                        <Image Grid.Column="0" Source="statebad.png" />
+                    </VerticalStackLayout>
+                </Frame>
                 <Label Grid.Column="1" Text="Bad" VerticalTextAlignment="Center"/>
             </Grid>
 
@@ -24,7 +32,11 @@
         <DataTemplate x:Key="State2">
 
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="stateok.png" BackgroundColor="Yellow" MaximumHeightRequest="45" />
+                <Frame HeightRequest="45" WidthRequest="45" BackgroundColor="Yellow">
+                    <VerticalStackLayout>
+                        <Image Grid.Column="0" Source="stateok.png" />
+                    </VerticalStackLayout>
+                </Frame>
                 <Label Grid.Column="1" Text="OK" VerticalTextAlignment="Center"/>
             </Grid>
 
@@ -32,7 +44,11 @@
         <DataTemplate x:Key="State3">
 
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="stategood.png" BackgroundColor="GreenYellow" MaximumHeightRequest="45" />
+                <Frame HeightRequest="45" WidthRequest="45" BackgroundColor="GreenYellow">
+                    <VerticalStackLayout>
+                        <Image Grid.Column="0" Source="stategood.png" />
+                    </VerticalStackLayout>
+                </Frame>
                 <Label Grid.Column="1" Text="Good" VerticalTextAlignment="Center"/>
             </Grid>
 
@@ -40,7 +56,11 @@
         <DataTemplate x:Key="State4">
 
             <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
-                <Image Grid.Column="0" Source="stategood.png" BackgroundColor="LightGreen" MaximumHeightRequest="45" />
+                <Frame HeightRequest="45" WidthRequest="45" BackgroundColor="LightGreen">
+                    <VerticalStackLayout>
+                        <Image Grid.Column="0" Source="stategood.png" />
+                    </VerticalStackLayout>
+                </Frame>
                 <Label Grid.Column="1" Text="Excellent" VerticalTextAlignment="Center"/>
             </Grid>
 

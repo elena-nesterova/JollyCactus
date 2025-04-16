@@ -1,43 +1,108 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:model="clr-namespace:JollyCactus.Maui.Model"
              xmlns:viewmodel="clr-namespace:JollyCactus.Maui.ViewModel"
              xmlns:controls="clr-namespace:JollyCactus.Maui.Views.PlantViews"
              x:Class="JollyCactus.Maui.Views.PlantTablePage"                
-             Title="Plants"
-             BackgroundColor="#E9FFE8">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem 
-            Text="Add location"
-            IconImageSource="add.png" 
-            Clicked="OnAddPlantClicked" />
-    </ContentPage.ToolbarItems>
-    <VerticalStackLayout Spacing="5" Padding="5">
-        <CollectionView Margin="0,10" ItemsSource="{Binding Plants}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame>                        
-                        <Grid ColumnDefinitions="*, auto">
-                            <controls:PlantView Grid.Column="0" HorizontalOptions="StartAndExpand">
-                                <View.GestureRecognizers>
-                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPlantTapped" />
-                                </View.GestureRecognizers>
-                            </controls:PlantView>
-                            <Grid ColumnDefinitions="*, *" Grid.Column="1" VerticalOptions="Start">
-                                <Button Grid.Column="1" ImageSource="delete.png" 
-                                        Clicked="OnDeletePlantClicked"
-                                        MaximumHeightRequest="40"
-                                        MaximumWidthRequest="50"
-                                        BackgroundColor="Transparent"/>
-                            </Grid>
-                    </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+             Title="Plants">
+
+    <Grid 
+        RowDefinitions="60, *, 55" 
+        Padding="5"
+        RowSpacing="5"
+        >
+        <VerticalStackLayout Grid.Row="0" VerticalOptions="Start">
+            <Label Text="Location:" Style="{StaticResource Headline}" />
+            
+            <Grid ColumnDefinitions="*, auto" ColumnSpacing="5">
+                <Frame Grid.Column="0" Padding="0">
+                    <Picker                         
+                        Title="Select a location"
+                        ItemsSource="{Binding Locations, Mode=OneWay}"                    
+                        SelectedItem="{Binding SelectedLocation, Mode=TwoWay}" 
+                        FontSize="Subtitle" >
+                        <Picker.ItemDisplayBinding>
+                            <MultiBinding StringFormat="{}{0} ({1})">
+                                <Binding Path="Name" FallbackValue="-" TargetNullValue="-"/>
+                                <Binding Path="PlantsCount" FallbackValue="-" TargetNullValue="-" />
+                            </MultiBinding>
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+                </Frame>
+                <ImageButton 
+                    Grid.Column="1" 
+                    Source="{AppThemeBinding Light=sort.png, Dark=sortdark.png}"
+                    Clicked="OnSortClicked"
+                    MaximumHeightRequest="40"
+                    MaximumWidthRequest="40"/>
+
+            </Grid>
+            
+        </VerticalStackLayout>
+
+        <ScrollView  Grid.Row="1"  Padding="0" VerticalOptions="Start">
+            <CollectionView Margin="0,10" ItemsSource="{Binding Plants}" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView VerticalOptions="Fill">
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItemView>
+                                        <Border MinimumWidthRequest="{Binding Height, Source={RelativeSource Self}}">
+                                            <ImageButton 
+                                                Source="{AppThemeBinding Light=move.png, Dark=movedark.png}"                                            
+                                                MaximumHeightRequest="40"
+                                                MaximumWidthRequest="40"
+                                                BackgroundColor="Transparent"
+                                                Clicked="OnMovePlantClicked"
+                                                SemanticProperties.Hint="Move to..."
+                                                VerticalOptions="Center"/>
+                                        </Border>
+                                    </SwipeItemView>        
+                                    <SwipeItemView VerticalOptions="Center">
+                                        <Border MinimumWidthRequest="{Binding Height, Source={RelativeSource Self}}">
+                                            <ImageButton 
+                                                Source="{AppThemeBinding Light=delete.png, Dark=deletedark.png}"                                            
+                                                MaximumHeightRequest="40"
+                                                MaximumWidthRequest="40"
+                                                BackgroundColor="Transparent"
+                                                Clicked="OnDeletePlantClicked"
+                                                SemanticProperties.Hint="Delete plant"
+                                                VerticalOptions="Center"/>    
+                                            </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Border>
+                                <VerticalStackLayout>
+                                    <Grid ColumnDefinitions="*, auto">
+                                        <StackLayout Grid.Column="0" HorizontalOptions="Fill">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnPlantTapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <controls:PlantView BindingContext="{Binding .}">
+
+                                            </controls:PlantView>
+                                        </StackLayout>                                        
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <Grid ColumnDefinitions="*" Grid.Row="2" RowSpacing="5" VerticalOptions="Start">
+            <Button Grid.Column="0"                
+                MaximumHeightRequest="50"
+                Text="Add plant"            
+                Clicked="OnAddPlantClicked" />
+        </Grid>
+    </Grid>
 </ContentPage>

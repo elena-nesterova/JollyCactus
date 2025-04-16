@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JollyCactus.Maui.Model;
+using JollyCactus.Maui.Settings;
+using Microsoft.EntityFrameworkCore;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,9 @@ namespace JollyCactus.Maui.Data
         {
             var groups = new List<Model.PlantPropertyGroup>();
 
+            Model.PlantPropertyDefinition property;
+
+
             var group = new Model.PlantPropertyGroup
             {
                 GroupNumber = 0,
@@ -25,7 +30,7 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "name",
+                Name = PlantPropertiesValues.PlantPropertyName,
                 Description = "Nickname of the plant",
                 DefaultValue = "Plant",
 
@@ -34,7 +39,7 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "botanical name",
+                Name = PlantPropertiesValues.PlantPropertyBotanicalName,
                 Description = "Oficial name of the plant (latin)",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyString
@@ -42,7 +47,7 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "family",
+                Name = PlantPropertiesValues.PlantPropertyFamilyName,
                 Description = "family of the plant",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyString
@@ -50,7 +55,15 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "state",
+                Name = PlantPropertiesValues.PlantPropertyAmountName,
+                Description = "how many plants",
+                DefaultValue = "1",
+                Type = Maui.Model.PlantPropertyType.PlantPropertyNumber
+            });
+
+            group.Properties.Add(new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertyStateName,
                 Description = "how does the plant feel",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyOneFromList
@@ -58,24 +71,15 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "picture",
-                Description = "",
-
-                Type = Maui.Model.PlantPropertyType.PlantPropertyPicture
-            });
-
-            group.Properties.Add(new Model.PlantPropertyDefinition
-            {
-                Name = "gallery",
+                Name = PlantPropertiesValues.PlantPropertyPictureName,
                 Description = "pictures of the plant",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyPicture
             });
             
-
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "adoption date",
+                Name = PlantPropertiesValues.PlantPropertyAdoptionDateName,
                 Description = "the date when the plant starts living with you",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyDate
@@ -83,7 +87,7 @@ namespace JollyCactus.Maui.Data
 
             group.Properties.Add(new Model.PlantPropertyDefinition
             {
-                Name = "note",
+                Name = PlantPropertiesValues.PlantPropertyNotesName,
                 Description = "anything you want to remember",
 
 
@@ -100,14 +104,62 @@ namespace JollyCactus.Maui.Data
                 Name = "Plant Care"
             };
 
-            group.Properties.Add(new Model.PlantPropertyDefinition
+            //=== sunlight
+
+            property = new Model.PlantPropertyDefinition
             {
-                Name = "sunlight",
+                Name = PlantPropertiesValues.PlantPropertySunlightName,
+                Description = "How much sun does the plant need",               
+
+            };
+
+            property.SubProperties = new();
+            property.SubProperties.Add(new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertySunlightName,
                 Description = "How much sun does the plant need",
+                SubName = "summer",
 
                 Type = Maui.Model.PlantPropertyType.PlantPropertyStringsFromList
             });
-            
+            property.SubProperties.Add(new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertySunlightName,
+                Description = "How much sun does the plant need",
+                SubName = "winter",
+
+                Type = Maui.Model.PlantPropertyType.PlantPropertyStringsFromList
+            });
+            group.Properties.Add(property);
+
+            //=== watering
+
+            property = new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertyWateringName,
+                Description = "How much sun does the plant need",
+
+            };
+
+            property.SubProperties = new();
+            property.SubProperties.Add(new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertyWateringName,
+                Description = "How much water does the plant need",
+                SubName = "summer",
+
+                Type = Maui.Model.PlantPropertyType.PlantPropertyOneFromList
+            });
+            property.SubProperties.Add(new Model.PlantPropertyDefinition
+            {
+                Name = PlantPropertiesValues.PlantPropertyWateringName,
+                Description = "How much water does the plant need",
+                SubName = "winter",
+
+                Type = Maui.Model.PlantPropertyType.PlantPropertyOneFromList
+            });
+            group.Properties.Add(property);
+
             groups.Add(group);
 
             return groups;
@@ -133,13 +185,13 @@ namespace JollyCactus.Maui.Data
             _properties = GetFreshList();
         }
 
-        private async Task GetPropertiesFromDbAsync()
+        /*private async Task GetPropertiesFromDbAsync()
         {
             SQLiteAsyncConnection _connection;
             _connection = new SQLiteAsyncConnection(JollyCactusPaths.GetPropertiesDatabasePath());
 
             await _connection.CreateTableAsync<Model.PlantPropertyGroup>();
             _properties = await _connection.Table<Model.PlantPropertyGroup>().ToListAsync();            
-        }
+        }*/
     }
 }

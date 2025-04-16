@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JollyCactus.Maui.Views.PlantPropertyViews.ViewPropertyStringView">
     <VerticalStackLayout>
-        <Label Text="{Binding Value}" TextColor="ForestGreen"/>
+        <Label Text="{Binding Value}" Style="{StaticResource Value}" />
     </VerticalStackLayout>
 </ContentView>

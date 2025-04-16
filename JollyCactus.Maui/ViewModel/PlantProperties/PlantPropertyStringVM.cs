@@ -2,10 +2,11 @@
 {
     public class PlantPropertyStringVM : PlantPropertyVM<string>
     {
-        public PlantPropertyStringVM(string name, string description, string persistenceStringValue = "") :
-            base(name, description)
+        public PlantPropertyStringVM(string name, string description, string parentName, string persistenceStringValue = "") :
+            base(name, description, parentName)
         {
             Value = persistenceStringValue;
+            IsChanged = false;
         }
 
         public override Model.PlantPropertyType PropertyType => Model.PlantPropertyType.PlantPropertyString;

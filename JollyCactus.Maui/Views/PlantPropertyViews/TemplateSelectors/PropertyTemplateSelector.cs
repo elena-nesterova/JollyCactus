@@ -17,7 +17,12 @@ namespace JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors
         public DataTemplate PropertyTemplateStringsFromListDefault { get; set; }
 
         public DataTemplate PropertyTemplateOneFromListState { get; set; }
+
+        public DataTemplate PropertyTemplateOneFromListWatering { get; set; }
+
         public DataTemplate PropertyTemplateOneFromListDefault { get; set; }
+
+        public DataTemplate PropertyTemplateNumber { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -35,8 +40,11 @@ namespace JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors
                     case Model.PlantPropertyType.PlantPropertyPicture:
                         return PropertyTemplatePicture;
 
+                    case Model.PlantPropertyType.PlantPropertyNumber:
+                        return PropertyTemplateNumber;
+
                     case Model.PlantPropertyType.PlantPropertyStringsFromList:
-                        switch (property.Name)
+                        switch (property.ParentName)
                         {
                             case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertySunlightName, StringComparison.InvariantCultureIgnoreCase):
                                 return PropertyTemplateStringsFromListSunlight;
@@ -44,10 +52,13 @@ namespace JollyCactus.Maui.Views.PlantPropertyViews.TemplateSelectors
                         return PropertyTemplateStringsFromListDefault;
 
                     case Model.PlantPropertyType.PlantPropertyOneFromList:
-                        switch (property.Name)
+                        switch (property.ParentName)
                         {
                             case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertyStateName, StringComparison.InvariantCultureIgnoreCase):
                                 return PropertyTemplateOneFromListState;
+
+                            case string str when str.Equals(Model.PlantPropertiesValues.PlantPropertyWateringName, StringComparison.InvariantCultureIgnoreCase):
+                                return PropertyTemplateOneFromListWatering;
                         }
                         return PropertyTemplateOneFromListDefault;
 

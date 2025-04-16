@@ -1,6 +1,5 @@
 ﻿
 using System.Diagnostics;
-using System.Reflection.Metadata;
 
 namespace JollyCactus.Maui.ViewModel.PlantProperties
 {
@@ -15,28 +14,45 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
             {
                 case Model.PlantPropertyType.PlantPropertyDate:
                     plantPropertyVM = new PlantPropertyDateVM(
-                        propertyDefinition.Name, propertyDefinition.Description,
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName, 
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
                         (modelProperty == null) ? "" : modelProperty.DBValue);
                     break;
                 case Model.PlantPropertyType.PlantPropertyString:
                     plantPropertyVM = new PlantPropertyStringVM(
-                        propertyDefinition.Name, propertyDefinition.Description,
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName, 
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
                         (modelProperty == null) ? propertyDefinition.DefaultValue : modelProperty.DBValue);
                     break;
                 case Model.PlantPropertyType.PlantPropertyPicture:
                     plantPropertyVM = new PlantPropertyPictureVM(
-                        propertyDefinition.Name, propertyDefinition.Description,
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName, 
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
                         (modelProperty == null) ? propertyDefinition.DefaultValue : modelProperty.DBValue);
                     break;
                 case Model.PlantPropertyType.PlantPropertyStringsFromList:
                     plantPropertyVM = new PlantPropertyStringsFromListVM(
-                        propertyDefinition.Name, propertyDefinition.Description,
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName, 
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
                         (modelProperty == null) ? "" : modelProperty.DBValue);
                     break;
                 case Model.PlantPropertyType.PlantPropertyOneFromList:
                     plantPropertyVM = new PlantPropertyOneFromListVM(
-                        propertyDefinition.Name, propertyDefinition.Description,
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName, 
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
                         (modelProperty == null) ? "" : modelProperty.DBValue);
+                    break;
+                case Model.PlantPropertyType.PlantPropertyNumber:
+                    plantPropertyVM = new PlantPropertyNumberVM(
+                        string.IsNullOrEmpty(propertyDefinition.SubName) ? propertyDefinition.Name : propertyDefinition.SubName,
+                        propertyDefinition.Description,
+                        propertyDefinition.Name,
+                        (modelProperty == null) ? propertyDefinition.DefaultValue : modelProperty.DBValue);
                     break;
             }
             Debug.Assert(plantPropertyVM != null);
@@ -45,8 +61,7 @@ namespace JollyCactus.Maui.ViewModel.PlantProperties
 
         public static PlantPropertyCompositeVM GetPropertyCompositeVM(Model.PlantPropertyDefinition propertyDefinition)
         {
-            PlantPropertyCompositeVM plantPropVM = new PlantPropertyCompositeVM(
-                        propertyDefinition.Name, propertyDefinition.Description);
+            PlantPropertyCompositeVM plantPropVM = new (propertyDefinition.Name, propertyDefinition.Description, propertyDefinition.Name);
             return plantPropVM;
         }
     }
